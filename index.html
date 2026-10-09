@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WizardRoyale | Yaratıcı Sosyal Ağ & Creator Hub</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <!-- FontAwesome & Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #0b0914;
+      --bg-secondary: #120e24;
+      --card-bg: rgba(23, 18, 43, 0.75);
+      --card-border: rgba(168, 85, 247, 0.18);
+      --input-bg: rgba(15, 12, 30, 0.85);
+      --text: #f3f0ff;
+      --text-muted: #948aa9;
+      --primary: #a855f7;
+      --primary-hover: #9333ea;
+      --primary-glow: rgba(168, 85, 247, 0.4);
+      --secondary: #ec4899;
+      --accent: #eab308;
+      --cyan: #38bdf8;
+      --success: #22c55e;
+      --danger: #f43f5e;
+      --radius: 18px;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    body.light {
+      --bg: #f4f0fb;
+      --bg-secondary: #eae4f5;
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --card-border: rgba(168, 85, 247, 0.22);
+      --input-bg: #f0e9fa;
+      --text: #19122e;
+      --text-muted: #6b5f85;
+      --shadow: 0 15px 35px rgba(100, 70, 150, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(circle at 10% 10%, rgba(168, 85, 247, 0.12), transparent 40%),
+        radial-gradient(circle at 90% 20%, rgba(236, 72, 153, 0.1), transparent 35%),
+        radial-gradient(circle at 50% 80%, rgba(56, 189, 248, 0.08), transparent 45%);
+      background-attachment: fixed;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+    /* Layout */
+    .app-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      z-index: 100;
+      background: rgba(11, 9, 20, 0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+    }
+
+    body.light .app-header {
+      background: rgba(244, 240, 251, 0.85);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--text);
+      letter-spacing: -0.5px;
+    }
+
+    .brand img {
+      width: 40px;
+      height: 40px;
+      filter: drop-shadow(0 0 12px var(--primary-glow));
+    }
+
+    .brand span {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .search-bar {
+      position: relative;
+      width: 320px;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 10px 16px 10px 42px;
+      border-radius: 99px;
+      border: 1px solid var(--card-border);
+      background: var(--input-bg);
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    .search-bar input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 20px var(--primary-glow);
+      width: 380px;
+    }
+
+    .search-bar i {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s;
+    }
+
+    .icon-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--primary-glow);
+    }
+
+    .badge-count {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: var(--danger);
+      color: white;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 99px;
+      border: 2px solid var(--bg);
+    }
+
+    .user-profile-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 14px 6px 6px;
+      border-radius: 99px;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .user-profile-btn:hover {
+      border-color: var(--primary);
+      background: var(--input-bg);
+    }
+
+    .avatar-img {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    /* Main Grid Layout */
+    .main-container {
+      max-width: 1320px;
+      margin: 92px auto 40px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 260px 1fr 340px;
+      gap: 24px;
+    }
+
+    /* Navigation Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 92px;
+      height: calc(100vh - 120px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .nav-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 13px 18px;
+      border-radius: 14px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      transition: all 0.25s;
+    }
+
+    .nav-item i {
+      font-size: 18px;
+      width: 22px;
+      text-align: center;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      color: var(--text);
+      background: linear-gradient(90deg, rgba(168, 85, 247, 0.15), transparent);
+      border-left: 4px solid var(--primary);
+    }
+
+    .nav-item.active i {
+      color: var(--primary);
+    }
+
+    .btn-create-post {
+      width: 100%;
+      padding: 14px;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      font-weight: 800;
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 8px 25px var(--primary-glow);
+      transition: all 0.3s;
+      margin-top: 16px;
+    }
+
+    .btn-create-post:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(168, 85, 247, 0.6);
+    }
+
+    /* Cards & Post Creator */
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .post-composer {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .composer-header {
+      display: flex;
+      gap: 14px;
+    }
+
+    .composer-textarea {
+      width: 100%;
+      min-height: 90px;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 16px;
+      outline: none;
+      resize: vertical;
+    }
+
+    .composer-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--card-border);
+      padding-top: 14px;
+    }
+
+    .composer-tools {
+      display: flex;
+      gap: 10px;
+    }
+
+    .tool-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      background: var(--input-bg);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tool-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Feed Filter Tabs */
+    .feed-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .tab-btn {
+      padding: 9px 18px;
+      border-radius: 99px;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 4px 15px var(--primary-glow);
+    }
+
+    /* Feed Posts */
+    .post-card {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: border-color 0.3s;
+    }
+
+    .post-card:hover {
+      border-color: rgba(168, 85, 247, 0.4);
+    }
+
+    .post-user {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .post-user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-details h4 {
+      font-size: 15px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .user-details span {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .verified-badge {
+      color: var(--cyan);
+      font-size: 13px;
+    }
+
+    .post-tag {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 99px;
+      background: rgba(168, 85, 247, 0.15);
+      color: var(--primary);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+
+    .post-content {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text);
+      white-space: pre-line;
+    }
+
+    .post-media {
+      width: 100%;
+      max-height: 360px;
+      border-radius: 14px;
+      object-fit: cover;
+      border: 1px solid var(--card-border);
+    }
+
+    .post-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 12px;
+      margin-top: 4px;
+    }
+
+    .action-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .action-btn:hover, .action-btn.active {
+      color: var(--secondary);
+    }
+
+    .action-btn.liked {
+      color: var(--danger);
+    }
+
+    /* Inline Comment Box */
+    .comments-section {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      border-top: 1px dashed var(--card-border);
+      padding-top: 14px;
+      margin-top: 10px;
+    }
+
+    .comments-section.open {
+      display: flex;
+    }
+
+    .comment-item {
+      display: flex;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .comment-bubble {
+      background: var(--input-bg);
+      padding: 8px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      flex: 1;
+    }
+
+    .comment-bubble strong {
+      display: block;
+      color: var(--primary);
+      font-size: 12px;
+    }
+
+    /* Right Sidebar Widgets */
+    .widget-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+    }
+
+    .trend-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+    }
+
+    .trend-item:hover .trend-name {
+      color: var(--primary);
+    }
+
+    .trend-name {
+      font-weight: 700;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .trend-count {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .suggest-user {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .suggest-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-follow {
+      padding: 6px 14px;
+      border-radius: 99px;
+      border: 1px solid var(--primary);
+      background: rgba(168, 85, 247, 0.1);
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-follow:hover, .btn-follow.following {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Arcade Mini Game Modal / Section */
+    #arcadeCanvas {
+      width: 100%;
+      height: 240px;
+      background: #05030a;
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 1000;
+      background: var(--card-bg);
+      border: 1px solid var(--primary);
+      color: var(--text);
+      padding: 14px 24px;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transform: translateY(120px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Direct Messages Drawer */
+    .dm-drawer {
+      position: fixed;
+      bottom: 0;
+      right: 80px;
+      width: 340px;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-bottom: none;
+      border-radius: 18px 18px 0 0;
+      box-shadow: var(--shadow);
+      z-index: 90;
+      transform: translateY(calc(100% - 50px));
+      transition: transform 0.3s ease;
+    }
+
+    .dm-drawer.open {
+      transform: translateY(0);
+    }
+
+    .dm-header {
+      height: 50px;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      border-bottom: 1px solid var(--card-border);
+      font-weight: 800;
+    }
+
+    .dm-body {
+      height: 320px;
+      padding: 14px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .msg-bubble {
+      max-width: 80%;
+      padding: 9px 14px;
+      border-radius: 14px;
+      font-size: 13px;
+    }
+
+    .msg-bubble.me {
+      align-self: flex-end;
+      background: var(--primary);
+      color: white;
+    }
+
+    .msg-bubble.other {
+      align-self: flex-start;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+    }
+
+    /* Modal Overlay for Profile Editor */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(800px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      background: var(--bg-secondary);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full { grid-column: 1 / -1; }
+
+    .form-group label {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-muted);
+    }
+
+    .form-group input, .form-group textarea, .form-group select {
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background: var(--input-bg);
+      color: var(--text);
+      outline: none;
+    }
+
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--primary);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1080px) {
+      .main-container {
+        grid-template-columns: 220px 1fr;
+      }
+      .right-sidebar { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        grid-template-columns: 1fr;
+        margin-top: 80px;
+      }
+      .sidebar { display: none; }
+      .search-bar { display: none; }
+      .dm-drawer { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- App Header Navbar -->
+  <header class="app-header">
+    <a href="#" class="brand">
+      <img src="favicon.svg" alt="WizardRoyale Icon">
+      <span>WizardRoyale</span> Hub
+    </a>
+
+    <div class="search-bar">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Gönderi, büyücü veya topluluk ara...">
+    </div>
+
+    <div class="header-actions">
+      <button class="icon-btn" id="themeToggle" title="Tema Değiştir">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+
+      <button class="icon-btn" id="notifBtn" title="Bildirimler">
+        <i class="fa-solid fa-bell"></i>
+        <span class="badge-count">3</span>
+      </button>
+
+      <button class="icon-btn" id="openEditorHeaderBtn" title="Profil Ayarları">
+        <i class="fa-solid fa-gear"></i>
+      </button>
+
+      <div class="user-profile-btn" id="userProfileBtn">
+        <div class="avatar-img" id="headerAvatar">🧙‍♂️</div>
+        <span style="font-weight: 800; font-size: 14px;" id="headerName">WizardRoyale</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Grid Container -->
+  <div class="main-container">
+    
+    <!-- Left Sidebar Menu -->
+    <aside class="sidebar">
+      <nav class="nav-menu">
+        <a href="#feed" class="nav-item active"><i class="fa-solid fa-house"></i> Akış (Feed)</a>
+        <a href="#explore" class="nav-item" onclick="filterCategory('Keşfet')"><i class="fa-solid fa-compass"></i> Keşfet</a>
+        <a href="#guild" class="nav-item" onclick="filterCategory('Topluluk')"><i class="fa-solid fa-users"></i> Lonca (Guild)</a>
+        <a href="#projects" class="nav-item" onclick="filterCategory('Proje')"><i class="fa-solid fa-code"></i> Projelerim</a>
+        <a href="#arcade" class="nav-item" onclick="scrollToArcade()"><i class="fa-solid fa-gamepad"></i> Wizard Arcade</a>
+        <a href="#settings" class="nav-item" id="navSettingsBtn"><i class="fa-solid fa-sliders"></i> Sitemi Düzenle</a>
+      </nav>
+
+      <button class="btn-create-post" id="sidebarPostBtn">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Büyü Paylaş
+      </button>
+    </aside>
+
+    <!-- Main Feed Section -->
+    <main class="feed-section">
+      
+      <!-- Profile Header Summary Banner -->
+      <div class="glass-card" style="position: relative; overflow: hidden; padding: 0;">
+        <div style="height: 110px; background: linear-gradient(135deg, var(--primary), var(--secondary), var(--cyan)); opacity: 0.85;"></div>
+        <div style="padding: 20px; display: flex; gap: 20px; align-items: flex-end; margin-top: -50px;">
+          <div class="avatar-img" id="bannerAvatar" style="width: 80px; height: 80px; font-size: 40px; border: 4px solid var(--bg); box-shadow: var(--shadow);">🧙‍♂️</div>
+          <div style="flex: 1;">
+            <h2 id="bannerName" style="font-size: 22px; font-weight: 900;">WizardRoyale</h2>
+            <p id="bannerRole" style="font-size: 13px; color: var(--secondary); font-weight: 700;">Creator / Full-Stack Sorcerer / Gamer</p>
+          </div>
+          <button class="btn-follow" id="editProfileBannerBtn" style="padding: 8px 18px; font-size: 13px;">⚙ Profili Düzenle</button>
+        </div>
+        <p id="bannerDesc" style="padding: 0 20px 20px; color: var(--text-muted); font-size: 14px;">
+          Büyülü sosyal ağa hoş geldin! Kendi içeriklerini paylaş, arkadaşlarınla etkileşime geç ve projelerini sergile.
+        </p>
+      </div>
+
+      <!-- Composer Card -->
+      <div class="glass-card post-composer">
+        <div class="composer-header">
+          <div class="avatar-img" id="composerAvatar">🧙‍♂️</div>
+          <textarea class="composer-textarea" id="postInput" placeholder="Aklından geçen büyüleyici bir fikri paylaş..."></textarea>
+        </div>
+
+        <div class="composer-actions">
+          <div class="composer-tools">
+            <button class="tool-btn" id="attachMediaBtn" title="Resim Ekle"><i class="fa-regular fa-image"></i></button>
+            <button class="tool-btn" id="attachCodeBtn" title="Kod Bloğu"><i class="fa-solid fa-code"></i></button>
+            <button class="tool-btn" id="attachPollBtn" title="Anket Yarat"><i class="fa-solid fa-square-poll-vertical"></i></button>
+            <select id="postTagSelect" style="border: 1px solid var(--card-border); background: var(--input-bg); color: var(--text); border-radius: 8px; padding: 0 10px; font-size: 12px; font-weight: 700;">
+              <option value="Duyuru">📣 Duyuru</option>
+              <option value="Proje">🚀 Proje</option>
+              <option value="Düşünce">💡 Düşünce</option>
+              <option value="Oyun">🎮 Oyun</option>
+            </select>
+          </div>
+
+          <button class="btn-create-post" id="publishPostBtn" style="width: auto; padding: 8px 22px; margin: 0; font-size: 14px;">
+            ✦ Gönder
+          </button>
+        </div>
+      </div>
+
+      <!-- Feed Filter Tabs -->
+      <div class="feed-tabs" id="feedFilter">
+        <button class="tab-btn active" data-filter="all">Tüm Gönderiler</button>
+        <button class="tab-btn" data-filter="Duyuru">📣 Duyurular</button>
+        <button class="tab-btn" data-filter="Proje">🚀 Projeler</button>
+        <button class="tab-btn" data-filter="Düşünce">💡 Düşünceler</button>
+        <button class="tab-btn" data-filter="Oyun">🎮 Oyunlar</button>
+      </div>
+
+      <!-- Feed Posts List Container -->
+      <div id="postsContainer"></div>
+
+      <!-- Arcade Game Section Container -->
+      <div class="glass-card" id="arcadeSection" style="margin-top: 30px;">
+        <div class="widget-title"><i class="fa-solid fa-gamepad" style="color: var(--secondary);"></i> Wizard Royale Survival (Arcade)</div>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">WASD / Oklar ile hareket et, Mouse ile nişan al ve ateş et!</p>
+        <canvas id="arcadeCanvas" width="700" height="280"></canvas>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
+          <span style="font-size: 13px; font-weight: 800;">Skor: <b id="arcadeScore" style="color: var(--secondary);">0</b></span>
+          <button class="btn-follow" id="startArcadeBtn"><i class="fa-solid fa-play"></i> Oyunu Başlat</button>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Right Sidebar Widgets -->
+    <aside class="right-sidebar">
+      
+      <!-- Guild / Friends Widget -->
+      <div class="glass-card">
+        <div class="widget-title"><i class="fa-solid fa-users-rays" style="color: var(--cyan);"></i> Sihirdar Loncası (Guild)</div>
+        <div id="guildContainer"></div>
+      </div>
+
+      <!-- Trending Hashtags -->
+      <div class="glass-card">
+        <div class="widget-title"><i class="fa-solid fa-fire" style="color: var(--danger);"></i> Gündemdeki Büyüler</div>
+        <div class="trend-item">
+          <div>
+            <div class="trend-name">#WizardRoyale2026</div>
+            <div class="trend-count">1.4k Gönderi</div>
+          </div>
+          <i class="fa-solid fa-chevron-right" style="font-size: 12px; color: var(--text-muted);"></i>
+        </div>
+        <div class="trend-item">
+          <div>
+            <div class="trend-name">#GitHubPagesLive</div>
+            <div class="trend-count">920 Gönderi</div>
+          </div>
+          <i class="fa-solid fa-chevron-right" style="font-size: 12px; color: var(--text-muted);"></i>
+        </div>
+        <div class="trend-item">
+          <div>
+            <div class="trend-name">#CanvasGameEngine</div>
+            <div class="trend-count">450 Gönderi</div>
+          </div>
+          <i class="fa-solid fa-chevron-right" style="font-size: 12px; color: var(--text-muted);"></i>
+        </div>
+      </div>
+
+      <!-- Suggested Accounts -->
+      <div class="glass-card">
+        <div class="widget-title"><i class="fa-solid fa-user-plus" style="color: var(--accent);"></i> Takip Önerileri</div>
+        <div class="suggest-user">
+          <div class="suggest-info">
+            <div class="avatar-img" style="width: 36px; height: 36px;">🔮</div>
+            <div>
+              <div style="font-size: 13px; font-weight: 800;">ArcaneDev</div>
+              <div style="font-size: 11px; color: var(--text-muted);">@arcanecoder</div>
+            </div>
+          </div>
+          <button class="btn-follow" onclick="this.classList.toggle('following'); this.textContent = this.classList.contains('following') ? 'Takipte' : 'Takip Et'">Takip Et</button>
+        </div>
+        <div class="suggest-user">
+          <div class="suggest-info">
+            <div class="avatar-img" style="width: 36px; height: 36px;">🎨</div>
+            <div>
+              <div style="font-size: 13px; font-weight: 800;">PixelSorceress</div>
+              <div style="font-size: 11px; color: var(--text-muted);">@pixeldag</div>
+            </div>
+          </div>
+          <button class="btn-follow" onclick="this.classList.toggle('following'); this.textContent = this.classList.contains('following') ? 'Takipte' : 'Takip Et'">Takip Et</button>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <!-- Direct Message Drawer -->
+  <div class="dm-drawer" id="dmDrawer">
+    <div class="dm-header" id="dmHeader">
+      <span><i class="fa-solid fa-comments" style="color: var(--primary);"></i> Canlı Sohbet (Sihirdar Meclisi)</span>
+      <i class="fa-solid fa-chevron-up" id="dmChevron"></i>
+    </div>
+    <div class="dm-body" id="dmMessages">
+      <div class="msg-bubble other"><strong>ArcaneDev:</strong> Selam! Yeni güncellemeyi gördün mü? 🔮</div>
+      <div class="msg-bubble me">Evet kanka, harika olmuş! GitHub Pages'e de yayınladım!</div>
+    </div>
+    <div style="padding: 10px; border-top: 1px solid var(--card-border); display: flex; gap: 8px;">
+      <input type="text" id="dmInput" placeholder="Mesaj yaz..." style="flex: 1; padding: 8px 12px; border-radius: 99px; border: 1px solid var(--card-border); background: var(--input-bg); color: var(--text); font-size: 13px; outline: none;">
+      <button class="tool-btn" id="dmSendBtn" style="border-radius: 99px;"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast">
+    <i class="fa-solid fa-circle-check" style="color: var(--success); font-size: 18px;"></i>
+    <span id="toastMsg">İşlem başarılı!</span>
+  </div>
+
+  <!-- Modal Editor Overlay -->
+  <div class="modal-overlay" id="editorModal">
+    <div class="modal-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-border); padding-bottom: 16px;">
+        <h2 style="font-size: 20px; font-weight: 900;"><i class="fa-solid fa-sliders" style="color: var(--primary);"></i> Sitemi & Profilimi Düzenle</h2>
+        <button class="tool-btn" id="closeEditorBtn" style="color: var(--danger);"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Ad & Soyad</label>
+          <input type="text" id="editName">
+        </div>
+        <div class="form-group">
+          <label>Kullanıcı Adı</label>
+          <input type="text" id="editUsername">
+        </div>
+        <div class="form-group full">
+          <label>Unvan / Rol</label>
+          <input type="text" id="editRole">
+        </div>
+        <div class="form-group">
+          <label>Avatar Emoji / İkon</label>
+          <input type="text" id="editAvatar">
+        </div>
+        <div class="form-group">
+          <label>Profil / Resim URL (İsteğe Bağlı)</label>
+          <input type="text" id="editAvatarUrl" placeholder="https://...">
+        </div>
+        <div class="form-group full">
+          <label>Hakkımda Açıklaması</label>
+          <textarea id="editAbout" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label>GitHub Bağlantısı</label>
+          <input type="text" id="editGithub" placeholder="https://github.com/...">
+        </div>
+        <div class="form-group">
+          <label>Twitter / X Bağlantısı</label>
+          <input type="text" id="editTwitter" placeholder="https://x.com/...">
+        </div>
+      </div>
+
+      <div style="margin-top: 24px; display: flex; justify-content: flex-end; gap: 12px; border-top: 1px solid var(--card-border); padding-top: 16px;">
+        <button class="tab-btn" id="exportDataBtn"><i class="fa-solid fa-download"></i> JSON İndir</button>
+        <button class="btn-create-post" id="saveProfileBtn" style="width: auto; padding: 10px 24px; margin: 0;">✓ Kaydet & Uygula</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* LOCAL DATA STORE */
+    const STORAGE_KEY = "wizard_social_data_v3";
+
+    const DEFAULT_DATA = {
+      profile: {
+        name: "WizardRoyale",
+        username: "@wizardroyale",
+        role: "Creator / Full-Stack Sorcerer / Gamer",
+        about: "Büyülü sosyal ağa hoş geldin! Kendi içeriklerini paylaş, arkadaşlarınla etkileşime geç ve projelerini sergile.",
+        avatar: "🧙‍♂️",
+        avatarUrl: "",
+        github: "https://github.com",
+        twitter: "https://x.com"
+      },
+      posts: [
+        {
+          id: 1,
+          author: "WizardRoyale",
+          username: "@wizardroyale",
+          avatar: "🧙‍♂️",
+          tag: "Duyuru",
+          content: "✨ WizardRoyale Sosyal Ağ Platformu tamamen yenilendi! GitHub Pages üzerinde yayınlanmaya uygun responsive tasarımı ve canlı sohbet modülüyle karşınızda! 🔥",
+          media: "",
+          likes: 38,
+          comments: [
+            { author: "ArcaneDev", text: "Tasarım efsane olmuş kanka, eline sağlık!" }
+          ],
+          time: "15 dk önce"
+        },
+        {
+          id: 2,
+          author: "ArcaneDev",
+          username: "@arcanecoder",
+          avatar: "🔮",
+          tag: "Proje",
+          content: "Canvas 2D API ile geliştirdiğimiz hayatta kalma mini oyunu akışa eklendi. Aşağı kaydırıp rekor kırabilirsiniz! ⚔️",
+          media: "",
+          likes: 24,
+          comments: [],
+          time: "1 saat önce"
+        }
+      ],
+      guild: [
+        { name: "ArcaneDev", role: "Master Wizard", avatar: "🔮", status: "Online" },
+        { name: "PixelSorceress", role: "UI/UX Designer", avatar: "🎨", status: "Tasarlıyor" },
+        { name: "ShadowGamer", role: "Arcade Champion", avatar: "⚔️", status: "Oyunda" }
+      ]
+    };
+
+    function loadData() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) return { ...DEFAULT_DATA, ...JSON.parse(saved) };
+      } catch (e) { console.warn("Load error", e); }
+      return JSON.parse(JSON.stringify(DEFAULT_DATA));
+    }
+
+    function saveData() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+    }
+
+    let appData = loadData();
+    let currentFilter = "all";
+
+    /* TOAST HELPER */
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      document.getElementById("toastMsg").textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 3000);
+    }
+
+    /* RENDER ENGINE */
+    function renderApp() {
+      // Header & Banner Profile
+      document.getElementById("headerName").textContent = appData.profile.name;
+      document.getElementById("bannerName").textContent = appData.profile.name;
+      document.getElementById("bannerRole").textContent = appData.profile.role;
+      document.getElementById("bannerDesc").textContent = appData.profile.about;
+
+      const av = appData.profile.avatar || "🧙‍♂️";
+      document.getElementById("headerAvatar").textContent = av;
+      document.getElementById("bannerAvatar").textContent = av;
+      document.getElementById("composerAvatar").textContent = av;
+
+      renderPosts();
+      renderGuild();
+    }
+
+    /* RENDER POSTS */
+    function renderPosts() {
+      const container = document.getElementById("postsContainer");
+      const filtered = currentFilter === "all" ? appData.posts : appData.posts.filter(p => p.tag === currentFilter);
+
+      if (!filtered.length) {
+        container.innerHTML = `<div class="glass-card" style="text-align:center; color:var(--text-muted);">Bu kategoride henüz gönderi bulunmuyor.</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(post => `
+        <article class="glass-card post-card">
+          <div class="post-user">
+            <div class="post-user-info">
+              <div class="avatar-img" style="width:42px; height:42px;">${post.avatar}</div>
+              <div class="user-details">
+                <h4>${escapeHTML(post.author)} <i class="fa-solid fa-circle-check verified-badge"></i></h4>
+                <span>${escapeHTML(post.username)} · ${post.time}</span>
+              </div>
+            </div>
+            <span class="post-tag">${escapeHTML(post.tag)}</span>
+          </div>
+
+          <div class="post-content">${escapeHTML(post.content)}</div>
+
+          ${post.media ? `<img src="${escapeHTML(post.media)}" class="post-media" alt="Post Media">` : ""}
+
+          <div class="post-actions">
+            <button class="action-btn" onclick="toggleLike(${post.id})">
+              <i class="fa-solid fa-heart" style="${post.liked ? 'color:var(--danger)' : ''}"></i>
+              <span>${post.likes} Beğeni</span>
+            </button>
+
+            <button class="action-btn" onclick="toggleComments(${post.id})">
+              <i class="fa-solid fa-comment"></i>
+              <span>${post.comments ? post.comments.length : 0} Yorum</span>
+            </button>
+
+            <button class="action-btn" onclick="sharePost('${escapeHTML(post.author)}')">
+              <i class="fa-solid fa-share-nodes"></i> Paylaş
+            </button>
+          </div>
+
+          <!-- Inline Comment Section -->
+          <div class="comments-section" id="comments-${post.id}">
+            <div style="display:flex; gap:8px;">
+              <input type="text" id="commentInput-${post.id}" placeholder="Yorum yaz..." style="flex:1; padding:8px 12px; border-radius:10px; border:1px solid var(--card-border); background:var(--input-bg); color:var(--text); font-size:13px; outline:none;">
+              <button class="btn-follow" onclick="addComment(${post.id})">Gönder</button>
+            </div>
+            ${(post.comments || []).map(c => `
+              <div class="comment-item">
+                <div class="comment-bubble">
+                  <strong>${escapeHTML(c.author)}</strong>
+                  ${escapeHTML(c.text)}
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function toggleLike(id) {
+      const p = appData.posts.find(item => item.id === id);
+      if (p) {
+        p.liked = !p.liked;
+        p.likes += p.liked ? 1 : -1;
+        saveData();
+        renderPosts();
+        showToast(p.liked ? "Gönderi beğenildi! ❤️" : "Beğeni geri alındı.");
+      }
+    }
+
+    function toggleComments(id) {
+      const el = document.getElementById(`comments-${id}`);
+      if (el) el.classList.toggle("open");
+    }
+
+    function addComment(id) {
+      const input = document.getElementById(`commentInput-${id}`);
+      const text = input.value.trim();
+      if (!text) return;
+
+      const p = appData.posts.find(item => item.id === id);
+      if (p) {
+        if (!p.comments) p.comments = [];
+        p.comments.push({ author: appData.profile.name, text: text });
+        saveData();
+        renderPosts();
+        toggleComments(id);
+        showToast("Yorum eklendi! 💬");
+      }
+    }
+
+    function sharePost(author) {
+      showToast(`${author} kullanıcısının gönderi bağlantısı kopyalandı! 🔗`);
+    }
+
+    function escapeHTML(str) {
+      return String(str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    /* RENDER GUILD */
+    function renderGuild() {
+      const container = document.getElementById("guildContainer");
+      container.innerHTML = appData.guild.map(m => `
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:8px 0;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div class="avatar-img" style="width:34px; height:34px;">${m.avatar}</div>
+            <div>
+              <div style="font-size:13px; font-weight:800;">${escapeHTML(m.name)}</div>
+              <div style="font-size:11px; color:var(--text-muted);">${escapeHTML(m.role)}</div>
+            </div>
+          </div>
+          <span style="font-size:10px; font-weight:800; padding:2px 8px; border-radius:99px; background:rgba(34,197,94,0.15); color:var(--success); border:1px solid rgba(34,197,94,0.3);">
+            ${escapeHTML(m.status)}
+          </span>
+        </div>
+      `).join("");
+    }
+
+    /* POST COMPOSER PUBLISH */
+    document.getElementById("publishPostBtn").onclick = () => {
+      const input = document.getElementById("postInput");
+      const content = input.value.trim();
+      const tag = document.getElementById("postTagSelect").value;
+
+      if (!content) {
+        showToast("Lütfen bir şeyler yazın!");
+        return;
+      }
+
+      const newPost = {
+        id: Date.now(),
+        author: appData.profile.name,
+        username: appData.profile.username,
+        avatar: appData.profile.avatar || "🧙‍♂️",
+        tag: tag,
+        content: content,
+        likes: 1,
+        liked: true,
+        comments: [],
+        time: "Şimdi"
+      };
+
+      appData.posts.unshift(newPost);
+      saveData();
+      input.value = "";
+      renderPosts();
+      showToast("Büyülü gönderin akışta yayınlandı! 🚀");
+    };
+
+    /* FEED TAB FILTER */
+    document.querySelectorAll("#feedFilter .tab-btn").forEach(btn => {
+      btn.onclick = (e) => {
+        document.querySelectorAll("#feedFilter .tab-btn").forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+        currentFilter = e.target.dataset.filter;
+        renderPosts();
+      };
+    });
+
+    function filterCategory(cat) {
+      currentFilter = cat;
+      renderPosts();
+    }
+
+    function scrollToArcade() {
+      document.getElementById("arcadeSection").scrollIntoView({ behavior: 'smooth' });
+    }
+
+    /* PROFILE EDITOR MODAL */
+    const modal = document.getElementById("editorModal");
+    function openModal() {
+      document.getElementById("editName").value = appData.profile.name;
+      document.getElementById("editUsername").value = appData.profile.username;
+      document.getElementById("editRole").value = appData.profile.role;
+      document.getElementById("editAvatar").value = appData.profile.avatar;
+      document.getElementById("editAbout").value = appData.profile.about;
+      modal.classList.add("open");
+    }
+
+    function closeModal() { modal.classList.remove("open"); }
+
+    document.getElementById("openEditorHeaderBtn").onclick = openModal;
+    document.getElementById("editProfileBannerBtn").onclick = openModal;
+    document.getElementById("navSettingsBtn").onclick = openModal;
+    document.getElementById("closeEditorBtn").onclick = closeModal;
+
+    document.getElementById("saveProfileBtn").onclick = () => {
+      appData.profile.name = document.getElementById("editName").value.trim() || "WizardRoyale";
+      appData.profile.username = document.getElementById("editUsername").value.trim() || "@wizardroyale";
+      appData.profile.role = document.getElementById("editRole").value.trim() || "Creator";
+      appData.profile.avatar = document.getElementById("editAvatar").value.trim() || "🧙‍♂️";
+      appData.profile.about = document.getElementById("editAbout").value.trim() || "";
+
+      saveData();
+      renderApp();
+      closeModal();
+      showToast("Profil bilgilerin güncellendi! ✨");
+    };
+
+    document.getElementById("exportDataBtn").onclick = () => {
+      const blob = new Blob([JSON.stringify(appData, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "wizardroyale-backup.json";
+      a.click();
+      showToast("Yedek JSON dosyası indirildi! 💾");
+    };
+
+    /* THEME TOGGLE */
+    document.getElementById("themeToggle").onclick = () => {
+      document.body.classList.toggle("light");
+      showToast(document.body.classList.contains("light") ? "Açık Tema Aktif ☀️" : "Koyu Tema Aktif 🌙");
+    };
+
+    /* DIRECT MESSAGES DRAWER TOGGLE */
+    const dmDrawer = document.getElementById("dmDrawer");
+    document.getElementById("dmHeader").onclick = () => {
+      dmDrawer.classList.toggle("open");
+      document.getElementById("dmChevron").className = dmDrawer.classList.contains("open") ? "fa-solid fa-chevron-down" : "fa-solid fa-chevron-up";
+    };
+
+    document.getElementById("dmSendBtn").onclick = () => {
+      const input = document.getElementById("dmInput");
+      const text = input.value.trim();
+      if (!text) return;
+
+      const body = document.getElementById("dmMessages");
+      body.innerHTML += `<div class="msg-bubble me">${escapeHTML(text)}</div>`;
+      input.value = "";
+      body.scrollTop = body.scrollHeight;
+    };
+
+    /* ARCADE CANVAS MINI GAME */
+    const canvas = document.getElementById("arcadeCanvas");
+    const ctx = canvas.getContext("2d");
+    let arcadeScore = 0;
+    let gameRunning = false;
+    let player = { x: 350, y: 140, r: 12 };
+    let bullets = [];
+    let enemies = [];
+
+    document.getElementById("startArcadeBtn").onclick = () => {
+      gameRunning = true;
+      arcadeScore = 0;
+      enemies = [];
+      bullets = [];
+      showToast("Arcade Oyunu Başladı! ⚔️");
+    };
+
+    function gameLoop() {
+      if (gameRunning) {
+        ctx.fillStyle = "#05030a";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw Player
+        ctx.fillStyle = "#a855f7";
+        ctx.beginPath();
+        ctx.arc(player.x, player.y, player.r, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Spawn Enemies
+        if (Math.random() < 0.04) {
+          enemies.push({ x: Math.random() * canvas.width, y: -10, r: 10, speed: 1.5 + Math.random() * 2 });
+        }
+
+        // Draw & Update Enemies
+        ctx.fillStyle = "#f43f5e";
+        enemies.forEach((e, idx) => {
+          e.y += e.speed;
+          ctx.beginPath();
+          ctx.arc(e.x, e.y, e.r, 0, Math.PI * 2);
+          ctx.fill();
+
+          if (e.y > canvas.height) enemies.splice(idx, 1);
+        });
+
+        document.getElementById("arcadeScore").textContent = arcadeScore;
+      } else {
+        ctx.fillStyle = "#120e24";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#a855f7";
+        ctx.font = "bold 16px 'Plus Jakarta Sans'";
+        ctx.textAlign = "center";
+        ctx.fillText("WIZARD SURVIVAL ARCADE", canvas.width / 2, canvas.height / 2 - 10);
+        ctx.fillStyle = "#948aa9";
+        ctx.font = "12px 'Plus Jakarta Sans'";
+        ctx.fillText("Başlamak için 'Oyunu Başlat' butonuna bas!", canvas.width / 2, canvas.height / 2 + 15);
+      }
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    canvas.onmousemove = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      player.x = e.clientX - rect.left;
+      player.y = e.clientY - rect.top;
+    };
+
+    canvas.onclick = () => {
+      if (gameRunning) {
+        arcadeScore += 10;
+        if (enemies.length) enemies.pop();
+      }
+    };
+
+    requestAnimationFrame(gameLoop);
+
+    /* INITIALIZE APP */
+    renderApp();
+  </script>
+</body>
+</html>
