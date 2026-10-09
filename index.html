@@ -1,0 +1,4536 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WizardRoyale | Creator</title>
+
+<style>
+:root{
+  --bg:#080612;
+  --panel:#100b1d;
+  --panel2:#171026;
+  --text:#f8f4ff;
+  --muted:#a99db9;
+  --primary:#9b5cff;
+  --secondary:#ffd166;
+  --danger:#ff5c7a;
+  --border:#2b1e3d;
+  --shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 20% 10%,rgba(155,92,255,.12),transparent 30%),
+    radial-gradient(circle at 80% 30%,rgba(255,209,102,.07),transparent 25%),
+    var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+
+body.light{
+  --bg:#f4f0fa;
+  --panel:#fff;
+  --panel2:#f1ebfa;
+  --text:#18111f;
+  --muted:#665b70;
+  --border:#ddd1eb;
+  background:linear-gradient(135deg,#f8f5fc,#eee5f8);
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.container{
+  width:min(1120px,92%);
+  margin:auto;
+}
+
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:100;
+  backdrop-filter:blur(18px);
+  background:rgba(8,6,18,.72);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+body.light header{
+  background:rgba(255,255,255,.75);
+  border-color:var(--border);
+}
+
+.nav{
+  height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.logo{
+  font-size:20px;
+  font-weight:900;
+  letter-spacing:1px;
+  white-space:nowrap;
+}
+
+.logo span{
+  color:var(--primary);
+}
+
+.logo b{
+  color:var(--text);
+}
+
+.navlinks{
+  display:flex;
+  align-items:center;
+  gap:22px;
+}
+
+.navlinks a{
+  color:var(--muted);
+  font-size:14px;
+  font-weight:700;
+  transition:.2s;
+}
+
+.navlinks a:hover{
+  color:var(--text);
+}
+
+.navactions{
+  display:flex;
+  gap:8px;
+}
+
+.btn{
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:var(--text);
+  border-radius:12px;
+  padding:10px 15px;
+  font-weight:800;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  border-color:var(--primary);
+}
+
+.btn.primary{
+  background:linear-gradient(135deg,var(--primary),#6f35d5);
+  border-color:transparent;
+  color:#fff;
+}
+
+.btn.gold{
+  background:linear-gradient(135deg,var(--secondary),#e7a927);
+  border-color:transparent;
+  color:#211606;
+}
+
+.btn.danger{
+  background:rgba(255,92,122,.12);
+  border-color:rgba(255,92,122,.3);
+  color:#ff7891;
+}
+
+.hero{
+  min-height:100vh;
+  padding-top:140px;
+  display:flex;
+  align-items:center;
+}
+
+.heroGrid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:70px;
+  align-items:center;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 12px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  border-radius:999px;
+  color:var(--secondary);
+  font-size:12px;
+  font-weight:900;
+  margin-bottom:20px;
+}
+
+.hero h1{
+  font-size:clamp(48px,8vw,92px);
+  line-height:.95;
+  letter-spacing:-5px;
+  margin-bottom:18px;
+}
+
+.hero h1 span{
+  color:var(--primary);
+}
+
+.hero h2{
+  color:var(--secondary);
+  font-size:clamp(18px,3vw,27px);
+  margin-bottom:18px;
+}
+
+.hero p{
+  color:var(--muted);
+  max-width:650px;
+  font-size:18px;
+}
+
+.heroButtons{
+  display:flex;
+  gap:12px;
+  margin-top:30px;
+  flex-wrap:wrap;
+}
+
+.avatarBox{
+  display:flex;
+  justify-content:center;
+}
+
+.avatar{
+  width:290px;
+  height:290px;
+  border-radius:35px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:120px;
+  background:
+    radial-gradient(circle at 35% 25%,rgba(255,255,255,.18),transparent 25%),
+    linear-gradient(135deg,rgba(155,92,255,.5),rgba(255,209,102,.12));
+  border:1px solid var(--border);
+  box-shadow:
+    0 0 80px rgba(155,92,255,.18),
+    var(--shadow);
+}
+
+section{
+  padding:100px 0;
+}
+
+.sectionTitle{
+  margin-bottom:40px;
+}
+
+.eyebrow{
+  color:var(--primary);
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:12px;
+}
+
+.sectionTitle h2{
+  font-size:42px;
+  line-height:1.1;
+  margin-top:8px;
+}
+
+.sectionTitle p{
+  color:var(--muted);
+  margin-top:10px;
+}
+
+.panel{
+  background:linear-gradient(145deg,var(--panel),var(--panel2));
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:28px;
+  box-shadow:var(--shadow);
+}
+
+.aboutGrid{
+  display:grid;
+  grid-template-columns:1.5fr .8fr;
+  gap:25px;
+}
+
+.aboutText{
+  color:var(--muted);
+  white-space:pre-line;
+}
+
+.facts{
+  display:grid;
+  gap:12px;
+}
+
+.fact{
+  padding:18px;
+  border-radius:16px;
+  background:rgba(155,92,255,.07);
+  border:1px solid var(--border);
+}
+
+.fact strong{
+  display:block;
+  font-size:27px;
+  color:var(--secondary);
+}
+
+.fact span{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.skills{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+
+.skill{
+  padding:20px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:var(--panel);
+}
+
+.skillTop{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:10px;
+}
+
+.skillTop span:last-child{
+  color:var(--secondary);
+  font-weight:900;
+}
+
+.bar{
+  height:9px;
+  border-radius:99px;
+  background:rgba(255,255,255,.07);
+  overflow:hidden;
+}
+
+.bar div{
+  height:100%;
+  border-radius:99px;
+  background:linear-gradient(90deg,var(--primary),var(--secondary));
+}
+
+.projects{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.project{
+  min-height:240px;
+  padding:23px;
+  border-radius:20px;
+  background:linear-gradient(145deg,var(--panel),var(--panel2));
+  border:1px solid var(--border);
+  transition:.25s;
+}
+
+.project:hover{
+  transform:translateY(-6px);
+  border-color:var(--primary);
+}
+
+.projectCategory{
+  color:var(--secondary);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+.project h3{
+  font-size:23px;
+  margin:12px 0;
+}
+
+.project p{
+  color:var(--muted);
+}
+
+.projectLinks{
+  display:flex;
+  gap:8px;
+  margin-top:20px;
+  flex-wrap:wrap;
+}
+
+.smallLink{
+  border:1px solid var(--border);
+  padding:7px 10px;
+  border-radius:9px;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:800;
+}
+
+.timeline{
+  position:relative;
+  max-width:800px;
+  margin:auto;
+}
+
+.timeline:before{
+  content:"";
+  position:absolute;
+  left:14px;
+  top:0;
+  bottom:0;
+  width:2px;
+  background:linear-gradient(var(--primary),transparent);
+}
+
+.timelineItem{
+  position:relative;
+  padding-left:50px;
+  margin-bottom:35px;
+}
+
+.timelineDot{
+  position:absolute;
+  left:7px;
+  top:5px;
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  background:var(--primary);
+  box-shadow:0 0 20px var(--primary);
+}
+
+.timelineYear{
+  color:var(--secondary);
+  font-weight:900;
+}
+
+.timelineItem h3{
+  margin:5px 0;
+  font-size:23px;
+}
+
+.timelineItem p{
+  color:var(--muted);
+}
+
+.musicBox{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.musicTitle{
+  color:var(--muted);
+}
+
+.gamewrap{
+  max-width:1000px;
+  margin:auto;
+}
+
+.gamehud{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:10px;
+  padding:12px 15px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:14px;
+  color:var(--muted);
+}
+
+.gamehud b{
+  color:var(--secondary);
+}
+
+#game{
+  display:block;
+  width:100%;
+  max-width:1000px;
+  height:auto;
+  border-radius:20px;
+  border:1px solid var(--border);
+  background:#05040a;
+  box-shadow:var(--shadow);
+  cursor:crosshair;
+}
+
+.gameControls{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:14px;
+  flex-wrap:wrap;
+}
+
+.gamehint{
+  text-align:center;
+  color:var(--muted);
+  margin-top:10px;
+  font-size:13px;
+}
+
+.socials{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.social{
+  padding:13px 17px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:var(--panel);
+  color:var(--muted);
+  font-weight:800;
+}
+
+.social:hover{
+  color:var(--text);
+  border-color:var(--primary);
+}
+
+footer{
+  border-top:1px solid var(--border);
+  padding:35px 0;
+  color:var(--muted);
+  text-align:center;
+}
+
+/* EDITOR */
+
+.overlay{
+  position:fixed;
+  inset:0;
+  z-index:999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(12px);
+}
+
+.overlay.open{
+  display:flex;
+}
+
+.editor{
+  width:min(1000px,100%);
+  max-height:92vh;
+  overflow:auto;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:24px;
+  box-shadow:0 30px 100px rgba(0,0,0,.6);
+}
+
+.editorHeader{
+  position:sticky;
+  top:0;
+  z-index:3;
+  padding:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:var(--panel);
+  border-bottom:1px solid var(--border);
+}
+
+.editorHeader h2{
+  font-size:23px;
+}
+
+.tabs{
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  padding:12px 20px;
+  border-bottom:1px solid var(--border);
+}
+
+.tab{
+  white-space:nowrap;
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:var(--muted);
+  padding:9px 13px;
+  border-radius:10px;
+  font-weight:800;
+}
+
+.tab.active{
+  color:#fff;
+  background:var(--primary);
+  border-color:var(--primary);
+}
+
+.editorBody{
+  padding:22px;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.formGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.field{
+  display:grid;
+  gap:7px;
+}
+
+.field.full{
+  grid-column:1/-1;
+}
+
+.field label{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:800;
+}
+
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+  background:var(--panel2);
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:11px 12px;
+  outline:none;
+}
+
+.field input:focus,
+.field textarea:focus{
+  border-color:var(--primary);
+}
+
+.field textarea{
+  min-height:110px;
+  resize:vertical;
+}
+
+.listEditor{
+  display:grid;
+  gap:12px;
+}
+
+.editCard{
+  padding:15px;
+  border:1px solid var(--border);
+  background:var(--panel2);
+  border-radius:15px;
+}
+
+.editCardGrid{
+  display:grid;
+  grid-template-columns:1fr 120px;
+  gap:10px;
+}
+
+.editCardGrid.three{
+  grid-template-columns:1fr 120px 100px;
+}
+
+.editCardGrid.four{
+  grid-template-columns:1fr 120px 1fr 1fr;
+}
+
+.editCard input,
+.editCard textarea{
+  width:100%;
+  padding:9px;
+  border-radius:9px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
+}
+
+.editCard textarea{
+  min-height:80px;
+  margin-top:9px;
+  resize:vertical;
+}
+
+.editActions{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:10px;
+}
+
+.editorFooter{
+  position:sticky;
+  bottom:0;
+  padding:15px 20px;
+  background:var(--panel);
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+}
+
+.info{
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:15px;
+}
+
+.colorRow{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.colorRow input[type=color]{
+  width:60px;
+  height:42px;
+  padding:3px;
+}
+
+@media(max-width:850px){
+  .navlinks{
+    display:none;
+  }
+
+  .heroGrid,
+  .aboutGrid{
+    grid-template-columns:1fr;
+  }
+
+  .avatarBox{
+    order:-1;
+  }
+
+  .avatar{
+    width:220px;
+    height:220px;
+    font-size:90px;
+  }
+
+  .skills,
+  .projects{
+    grid-template-columns:1fr;
+  }
+
+  .formGrid{
+    grid-template-columns:1fr;
+  }
+
+  .field.full{
+    grid-column:auto;
+  }
+
+  .editCardGrid,
+  .editCardGrid.three,
+  .editCardGrid.four{
+    grid-template-columns:1fr;
+  }
+
+  .hero h1{
+    letter-spacing:-3px;
+  }
+
+  section{
+    padding:75px 0;
+  }
+}
+
+@media(max-width:500px){
+  .nav{
+    height:65px;
+  }
+
+  .navactions .btn{
+    padding:8px 10px;
+  }
+
+  .logo{
+    font-size:16px;
+  }
+
+  .hero{
+    padding-top:110px;
+  }
+
+  .hero h1{
+    font-size:50px;
+  }
+
+  .gamehud{
+    font-size:12px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+
+    <a class="logo" href="#home">
+      <span>&lt;</span><b id="navBrand">WIZARDROYALE</b><span>/&gt;</span>
+    </a>
+
+    <nav class="navlinks">
+      <a href="#about">Hakkımda</a>
+      <a href="#skills">Yetenekler</a>
+      <a href="#projects">Projeler</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#arcade">Arcade</a>
+      <a href="#contact">İletişim</a>
+    </nav>
+
+    <div class="navactions">
+      <button class="btn" id="themeBtn">☀ Tema</button>
+      <button class="btn primary" id="openEditorBtn">⚙ Düzenle</button>
+    </div>
+
+  </div>
+</header>
+
+<main>
+
+<section class="hero" id="home">
+  <div class="container heroGrid">
+
+    <div>
+      <div class="badge">✦ KİŞİSEL PORTFÖY SİSTEMİ</div>
+
+      <h1>
+        Merhaba,<br>
+        ben <span id="heroName">WizardRoyale</span>
+      </h1>
+
+      <h2 id="heroRole">Creator / Designer / Gamer</h2>
+
+      <p id="heroDesc">
+        Kendi portföyünü oluştur, projelerini göster ve tarzını herkese yansıt.
+      </p>
+
+      <div class="heroButtons">
+        <a href="#projects" class="btn primary">Projelerime Bak</a>
+        <button class="btn gold" id="heroEditBtn">✦ Portföyümü Düzenle</button>
+      </div>
+    </div>
+
+    <div class="avatarBox">
+      <div class="avatar" id="avatar">🧙‍♂️</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+
+    <div class="sectionTitle">
+      <div class="eyebrow">01 / Hakkımda</div>
+      <h2>Kendini anlat.</h2>
+      <p>Bu alanı tamamen kendine göre değiştirebilirsin.</p>
+    </div>
+
+    <div class="aboutGrid">
+
+      <div class="panel">
+        <p class="aboutText" id="aboutText"></p>
+      </div>
+
+      <div class="facts">
+
+        <div class="fact">
+          <strong id="factSkills">0</strong>
+          <span>Yetenek</span>
+        </div>
+
+        <div class="fact">
+          <strong id="factProjects">0</strong>
+          <span>Proje</span>
+        </div>
+
+        <div class="fact">
+          <strong id="factYears">2026</strong>
+          <span>Başlangıç</span>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container">
+
+    <div class="sectionTitle">
+      <div class="eyebrow">02 / Yetenekler</div>
+      <h2>Neler yapabiliyorum?</h2>
+    </div>
+
+    <div class="skills" id="skillsList"></div>
+
+  </div>
+</section>
+
+<section id="projects">
+  <div class="container">
+
+    <div class="sectionTitle">
+      <div class="eyebrow">03 / Projeler</div>
+      <h2>Ürettiklerim.</h2>
+    </div>
+
+    <div class="projects" id="projectsList"></div>
+
+  </div>
+</section>
+
+<section id="timeline">
+  <div class="container">
+
+    <div class="sectionTitle">
+      <div class="eyebrow">04 / Timeline</div>
+      <h2>Yolculuğum.</h2>
+    </div>
+
+    <div class="timeline" id="timelineList"></div>
+
+  </div>
+</section>
+
+<section id="music">
+  <div class="container">
+
+    <div class="sectionTitle">
+      <div class="eyebrow">05 / Music</div>
+      <h2>Benim müziğim.</h2>
+    </div>
+
+    <div class="panel musicBox">
+
+      <input type="file" id="musicFile" accept="audio/*">
+
+      <button class="btn primary" id="musicBtn">
+        ▶ Müziği Başlat
+      </button>
+
+      <span class="musicTitle" id="musicTitle">
+        Henüz müzik seçilmedi.
+      </span>
+
+      <audio id="audio"></audio>
+
+    </div>
+
+  </div>
+</section>
+
+<section id="arcade">
+  <div class="container">
+
+    <div class="sectionTitle">
+      <div class="eyebrow">06 / Arcade</div>
+      <h2>Wizard Royale</h2>
+      <p>Dalga dalga gelen düşmanlara karşı hayatta kal.</p>
+    </div>
+
+    <div class="gamewrap">
+
+      <div class="gamehud">
+        <span id="hud">Hazır</span>
+        <span>En yüksek skor: <b id="bestScore">0</b></span>
+      </div>
+
+      <canvas id="game" width="1000" height="570"></canvas>
+
+      <div class="gameControls">
+        <button class="btn primary" id="gameStartBtn">▶ Oyunu Başlat</button>
+        <button class="btn" id="gamePauseBtn">Ⅱ Duraklat</button>
+      </div>
+
+      <div class="gamehint">
+        WASD / Oklar: Hareket · Mouse: Nişan · Sol tık / Space: Ateş · Shift: Dash · P: Duraklat
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+
+    <div class="sectionTitle" style="text-align:center">
+      <div class="eyebrow">07 / Contact</div>
+      <h2>Beni bul.</h2>
+      <p>Sosyal hesaplarını düzenleyiciden ekleyebilirsin.</p>
+    </div>
+
+    <div class="socials" id="socials"></div>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  © <span id="year"></span> <span id="footerName">WizardRoyale</span> · Herkes kendi portföyünü oluşturabilir.
+</footer>
+
+
+<!-- EDITOR -->
+
+<div class="overlay" id="editorOverlay">
+
+  <div class="editor">
+
+    <div class="editorHeader">
+      <h2>⚙ Portföy Düzenleyici</h2>
+      <button class="btn" id="closeEditorBtn">✕</button>
+    </div>
+
+    <div class="tabs">
+
+      <button class="tab active" data-tab="profile">Profil</button>
+      <button class="tab" data-tab="skills">Yetenekler</button>
+      <button class="tab" data-tab="projects">Projeler</button>
+      <button class="tab" data-tab="timeline">Timeline</button>
+      <button class="tab" data-tab="social">Sosyal</button>
+      <button class="tab" data-tab="site">Site</button>
+      <button class="tab" data-tab="data">Veri</button>
+
+    </div>
+
+    <div class="editorBody">
+
+      <!-- PROFILE -->
+
+      <div class="page active" id="page-profile">
+
+        <p class="info">
+          Profil bilgilerini değiştir. Değişiklikler sadece bu tarayıcıdaki kişisel portföyünü etkiler.
+        </p>
+
+        <div class="formGrid">
+
+          <div class="field">
+            <label>İsim</label>
+            <input id="fName">
+          </div>
+
+          <div class="field">
+            <label>Kullanıcı adı</label>
+            <input id="fUsername">
+          </div>
+
+          <div class="field full">
+            <label>Rol / Ünvan</label>
+            <input id="fRole">
+          </div>
+
+          <div class="field">
+            <label>Avatar / Emoji</label>
+            <input id="fAvatar">
+          </div>
+
+          <div class="field">
+            <label>Avatar için URL</label>
+            <input id="fAvatarUrl" placeholder="https://...">
+          </div>
+
+          <div class="field full">
+            <label>Kısa açıklama</label>
+            <textarea id="fDesc"></textarea>
+          </div>
+
+          <div class="field full">
+            <label>Hakkımda</label>
+            <textarea id="fAbout"></textarea>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- SKILLS -->
+
+      <div class="page" id="page-skills">
+
+        <p class="info">
+          Yeteneklerini ve seviyelerini ekle.
+        </p>
+
+        <div class="listEditor" id="skillEditor"></div>
+
+        <button class="btn primary" id="addSkillBtn">＋ Yetenek Ekle</button>
+
+      </div>
+
+
+      <!-- PROJECTS -->
+
+      <div class="page" id="page-projects">
+
+        <p class="info">
+          Projelerini ekle. Linkleri boş bırakabilirsin.
+        </p>
+
+        <div class="listEditor" id="projectEditor"></div>
+
+        <button class="btn primary" id="addProjectBtn">＋ Proje Ekle</button>
+
+      </div>
+
+
+      <!-- TIMELINE -->
+
+      <div class="page" id="page-timeline">
+
+        <p class="info">
+          Eğitim, kariyer ve önemli dönüm noktalarını ekle.
+        </p>
+
+        <div class="listEditor" id="timelineEditor"></div>
+
+        <button class="btn primary" id="addTimelineBtn">＋ Timeline Ekle</button>
+
+      </div>
+
+
+      <!-- SOCIAL -->
+
+      <div class="page" id="page-social">
+
+        <p class="info">
+          Sosyal medya adreslerini ekle. Boş bıraktıkların sitede görünmez.
+        </p>
+
+        <div class="formGrid">
+
+          <div class="field">
+            <label>YouTube</label>
+            <input data-social="youtube" placeholder="https://youtube.com/...">
+          </div>
+
+          <div class="field">
+            <label>Instagram</label>
+            <input data-social="instagram" placeholder="https://instagram.com/...">
+          </div>
+
+          <div class="field">
+            <label>TikTok</label>
+            <input data-social="tiktok" placeholder="https://tiktok.com/@...">
+          </div>
+
+          <div class="field">
+            <label>Discord</label>
+            <input data-social="discord" placeholder="https://discord.gg/...">
+          </div>
+
+          <div class="field">
+            <label>GitHub</label>
+            <input data-social="github" placeholder="https://github.com/...">
+          </div>
+
+          <div class="field">
+            <label>X / Twitter</label>
+            <input data-social="x" placeholder="https://x.com/...">
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- SITE -->
+
+      <div class="page" id="page-site">
+
+        <p class="info">
+          Sitenin görünümünü kişiselleştir.
+        </p>
+
+        <div class="formGrid">
+
+          <div class="field full">
+            <label>Tarayıcı başlığı</label>
+            <input id="fTitle">
+          </div>
+
+          <div class="field">
+            <label>Marka</label>
+            <input id="fBrand">
+          </div>
+
+          <div class="field">
+            <label>Tema</label>
+            <select id="fTheme">
+              <option value="dark">Koyu</option>
+              <option value="light">Açık</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Ana renk</label>
+            <div class="colorRow">
+              <input type="color" id="fPrimary">
+              <span>Ana vurgu rengi</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>İkinci renk</label>
+            <div class="colorRow">
+              <input type="color" id="fSecondary">
+              <span>İkinci vurgu rengi</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- DATA -->
+
+      <div class="page" id="page-data">
+
+        <p class="info">
+          Portföyünü JSON olarak dışarı aktarabilir veya başka bir bilgisayardan içeri alabilirsin.
+        </p>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+
+          <button class="btn primary" id="exportBtn">
+            ↓ JSON Dışa Aktar
+          </button>
+
+          <button class="btn" id="importBtn">
+            ↑ JSON İçe Aktar
+          </button>
+
+          <button class="btn danger" id="resetBtn">
+            ↻ Varsayılana Dön
+          </button>
+
+          <input type="file" id="importFile" accept=".json" hidden>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="editorFooter">
+      <button class="btn" id="cancelBtn">İptal</button>
+      <button class="btn primary" id="saveBtn">✓ Kaydet</button>
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+/* =========================================================
+   WIZARDROYALE PORTFOLIO SYSTEM
+   ========================================================= */
+
+const STORAGE_KEY = "wizardPortfolioData";
+
+const DEFAULT_DATA = {
+  profile:{
+    name:"WizardRoyale",
+    username:"@wizardroyale",
+    role:"Creator / Designer / Gamer",
+    description:"Kendi portföyünü oluştur, projelerini göster ve tarzını herkese yansıt.",
+    about:"Buraya kendin hakkında bilgi yazabilirsin. Eğitimini, ilgi alanlarını, hedeflerini ve yaptığın işleri anlat.",
+    avatar:"🧙‍♂️",
+    avatarUrl:""
+  },
+
+  skills:[
+    {name:"HTML / CSS",level:90},
+    {name:"JavaScript",level:75},
+    {name:"AutoCAD",level:85},
+    {name:"Video Editing",level:70}
+  ],
+
+  projects:[
+    {
+      title:"Portfolio Website",
+      category:"WEB",
+      description:"Kişisel portföy ve özelleştirilebilir creator sitesi.",
+      link:"",
+      github:""
+    },
+    {
+      title:"Arcane Survival",
+      category:"GAME",
+      description:"Canvas tabanlı küçük bir arcade survival oyunu.",
+      link:"",
+      github:""
+    },
+    {
+      title:"My Next Project",
+      category:"PROJECT",
+      description:"Buraya sıradaki projenin açıklamasını yaz.",
+      link:"",
+      github:""
+    }
+  ],
+
+  timeline:[
+    {
+      year:"2026",
+      title:"Yeni başlangıç",
+      description:"Kişisel portföyümü ve üretim sistemimi geliştirmeye başladım."
+    },
+    {
+      year:"2025",
+      title:"Öğrenme dönemi",
+      description:"Tasarım, teknik çizim, içerik ve dijital üretim alanlarında deneyim kazandım."
+    }
+  ],
+
+  socials:{
+    youtube:"",
+    instagram:"",
+    tiktok:"",
+    discord:"",
+    github:"",
+    x:""
+  },
+
+  site:{
+    title:"WizardRoyale | Creator",
+    brand:"WIZARDROYALE",
+    primary:"#9b5cff",
+    secondary:"#ffd166",
+    theme:"dark"
+  }
+};
+
+
+/* =========================================================
+   UTILITIES
+   ========================================================= */
+
+function clone(obj){
+  return JSON.parse(JSON.stringify(obj));
+}
+
+function escapeHTML(value){
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function safeUrl(value){
+  const url = String(value || "").trim();
+
+  if(!url) return "";
+
+  if(/^https?:\/\//i.test(url)){
+    return url;
+  }
+
+  if(/^www\./i.test(url)){
+    return "https://" + url;
+  }
+
+  return "";
+}
+
+function mergeData(raw){
+
+  const source = raw && typeof raw === "object" ? raw : {};
+
+  return {
+    profile:{
+      ...DEFAULT_DATA.profile,
+      ...(source.profile || {})
+    },
+
+    skills:Array.isArray(source.skills)
+      ? source.skills
+      : clone(DEFAULT_DATA.skills),
+
+    projects:Array.isArray(source.projects)
+      ? source.projects
+      : clone(DEFAULT_DATA.projects),
+
+    timeline:Array.isArray(source.timeline)
+      ? source.timeline
+      : clone(DEFAULT_DATA.timeline),
+
+    socials:{
+      ...DEFAULT_DATA.socials,
+      ...(source.socials || {})
+    },
+
+    site:{
+      ...DEFAULT_DATA.site,
+      ...(source.site || {})
+    }
+  };
+}
+
+function loadData(){
+
+  try{
+
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if(saved){
+      return mergeData(JSON.parse(saved));
+    }
+
+  }catch(error){
+
+    console.warn("Veri okunamadı:",error);
+
+  }
+
+  return clone(DEFAULT_DATA);
+}
+
+function saveData(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(data)
+  );
+}
+
+
+/* =========================================================
+   DOM REFERENCES
+   ========================================================= */
+
+const navBrandEl = document.getElementById("navBrand");
+const heroNameEl = document.getElementById("heroName");
+const heroRoleEl = document.getElementById("heroRole");
+const heroDescEl = document.getElementById("heroDesc");
+const avatarEl = document.getElementById("avatar");
+const aboutTextEl = document.getElementById("aboutText");
+
+const factSkillsEl = document.getElementById("factSkills");
+const factProjectsEl = document.getElementById("factProjects");
+const factYearsEl = document.getElementById("factYears");
+
+const skillsListEl = document.getElementById("skillsList");
+const projectsListEl = document.getElementById("projectsList");
+const timelineListEl = document.getElementById("timelineList");
+const socialsEl = document.getElementById("socials");
+
+const footerNameEl = document.getElementById("footerName");
+const yearEl = document.getElementById("year");
+
+const themeBtn = document.getElementById("themeBtn");
+const openEditorBtn = document.getElementById("openEditorBtn");
+const heroEditBtn = document.getElementById("heroEditBtn");
+
+const editorOverlay = document.getElementById("editorOverlay");
+const closeEditorBtn = document.getElementById("closeEditorBtn");
+const cancelBtn = document.getElementById("cancelBtn");
+const saveBtn = document.getElementById("saveBtn");
+
+
+/* =========================================================
+   STATE
+   ========================================================= */
+
+let data = loadData();
+let draft = clone(data);
+
+
+/* =========================================================
+   THEME
+   ========================================================= */
+
+function setTheme(theme){
+
+  const isLight = theme === "light";
+
+  document.body.classList.toggle("light",isLight);
+
+  document.documentElement.style.setProperty(
+    "--primary",
+    data.site.primary
+  );
+
+  document.documentElement.style.setProperty(
+    "--secondary",
+    data.site.secondary
+  );
+
+  document.title = data.site.title;
+
+  themeBtn.textContent = isLight
+    ? "🌙 Tema"
+    : "☀ Tema";
+}
+
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+
+function render(){
+
+  navBrandEl.textContent = data.site.brand;
+
+  heroNameEl.textContent = data.profile.name;
+
+  heroRoleEl.textContent = data.profile.role;
+
+  heroDescEl.textContent = data.profile.description;
+
+  aboutTextEl.textContent = data.profile.about;
+
+  footerNameEl.textContent = data.profile.name;
+
+  yearEl.textContent = new Date().getFullYear();
+
+  factSkillsEl.textContent = data.skills.length;
+
+  factProjectsEl.textContent = data.projects.length;
+
+  factYearsEl.textContent =
+    data.timeline.length
+      ? data.timeline[data.timeline.length - 1].year
+      : new Date().getFullYear();
+
+  if(data.profile.avatarUrl){
+
+    const avatarUrl = safeUrl(data.profile.avatarUrl);
+
+    if(avatarUrl){
+
+      avatarEl.innerHTML =
+        `<img src="${escapeHTML(avatarUrl)}"
+              alt="Avatar"
+              style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">`;
+
+    }else{
+
+      avatarEl.textContent = data.profile.avatar || "🧙‍♂️";
+
+    }
+
+  }else{
+
+    avatarEl.textContent = data.profile.avatar || "🧙‍♂️";
+
+  }
+
+  renderSkills();
+  renderProjects();
+  renderTimeline();
+  renderSocials();
+
+  setTheme(data.site.theme);
+}
+
+
+/* =========================================================
+   SKILLS
+   ========================================================= */
+
+function renderSkills(){
+
+  if(!data.skills.length){
+
+    skillsListEl.innerHTML =
+      `<div class="panel">Henüz yetenek eklenmedi.</div>`;
+
+    return;
+  }
+
+  skillsListEl.innerHTML = data.skills.map(skill => {
+
+    const level = Math.max(
+      0,
+      Math.min(100,Number(skill.level) || 0)
+    );
+
+    return `
+      <div class="skill">
+
+        <div class="skillTop">
+          <strong>${escapeHTML(skill.name)}</strong>
+          <span>${level}%</span>
+        </div>
+
+        <div class="bar">
+          <div style="width:${level}%"></div>
+        </div>
+
+      </div>
+    `;
+
+  }).join("");
+}
+
+
+/* =========================================================
+   PROJECTS
+   ========================================================= */
+
+function renderProjects(){
+
+  if(!data.projects.length){
+
+    projectsListEl.innerHTML =
+      `<div class="panel">Henüz proje eklenmedi.</div>`;
+
+    return;
+  }
+
+  projectsListEl.innerHTML = data.projects.map(project => {
+
+    const link = safeUrl(project.link);
+    const github = safeUrl(project.github);
+
+    return `
+      <article class="project">
+
+        <div class="projectCategory">
+          ${escapeHTML(project.category || "PROJECT")}
+        </div>
+
+        <h3>${escapeHTML(project.title)}</h3>
+
+        <p>${escapeHTML(project.description)}</p>
+
+        <div class="projectLinks">
+
+          ${
+            link
+              ? `<a class="smallLink"
+                    href="${escapeHTML(link)}"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    ↗ Projeyi Aç
+                 </a>`
+              : ""
+          }
+
+          ${
+            github
+              ? `<a class="smallLink"
+                    href="${escapeHTML(github)}"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    GitHub
+                 </a>`
+              : ""
+          }
+
+        </div>
+
+      </article>
+    `;
+
+  }).join("");
+}
+
+
+/* =========================================================
+   TIMELINE
+   ========================================================= */
+
+function renderTimeline(){
+
+  if(!data.timeline.length){
+
+    timelineListEl.innerHTML =
+      `<div class="panel">Henüz timeline eklenmedi.</div>`;
+
+    return;
+  }
+
+  timelineListEl.innerHTML = data.timeline.map(item => {
+
+    return `
+      <div class="timelineItem">
+
+        <div class="timelineDot"></div>
+
+        <div class="timelineYear">
+          ${escapeHTML(item.year)}
+        </div>
+
+        <h3>${escapeHTML(item.title)}</h3>
+
+        <p>${escapeHTML(item.description)}</p>
+
+      </div>
+    `;
+
+  }).join("");
+}
+
+
+/* =========================================================
+   SOCIALS
+   ========================================================= */
+
+function renderSocials(){
+
+  const names = {
+    youtube:"YouTube",
+    instagram:"Instagram",
+    tiktok:"TikTok",
+    discord:"Discord",
+    github:"GitHub",
+    x:"X / Twitter"
+  };
+
+  const icons = {
+    youtube:"▶",
+    instagram:"◎",
+    tiktok:"♪",
+    discord:"◈",
+    github:"◉",
+    x:"𝕏"
+  };
+
+  const html = Object.entries(data.socials)
+    .filter(([_,url]) => safeUrl(url))
+    .map(([key,url]) => {
+
+      const finalUrl = safeUrl(url);
+
+      return `
+        <a
+          class="social"
+          href="${escapeHTML(finalUrl)}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ${icons[key] || "↗"} ${names[key] || key}
+        </a>
+      `;
+
+    }).join("");
+
+  socialsEl.innerHTML =
+    html ||
+    `<div class="panel">Sosyal medya hesabı eklenmedi.</div>`;
+}
+
+
+/* =========================================================
+   EDITOR
+   ========================================================= */
+
+function openEditor(){
+
+  draft = clone(data);
+
+  fillEditor();
+
+  editorOverlay.classList.add("open");
+
+  document.body.style.overflow = "hidden";
+}
+
+function closeEditor(){
+
+  editorOverlay.classList.remove("open");
+
+  document.body.style.overflow = "";
+}
+
+function fillEditor(){
+
+  document.getElementById("fName").value =
+    draft.profile.name;
+
+  document.getElementById("fUsername").value =
+    draft.profile.username;
+
+  document.getElementById("fRole").value =
+    draft.profile.role;
+
+  document.getElementById("fAvatar").value =
+    draft.profile.avatar;
+
+  document.getElementById("fAvatarUrl").value =
+    draft.profile.avatarUrl || "";
+
+  document.getElementById("fDesc").value =
+    draft.profile.description;
+
+  document.getElementById("fAbout").value =
+    draft.profile.about;
+
+  document.getElementById("fTitle").value =
+    draft.site.title;
+
+  document.getElementById("fBrand").value =
+    draft.site.brand;
+
+  document.getElementById("fPrimary").value =
+    draft.site.primary;
+
+  document.getElementById("fSecondary").value =
+    draft.site.secondary;
+
+  document.getElementById("fTheme").value =
+    draft.site.theme;
+
+  document.querySelectorAll("[data-social]")
+    .forEach(input => {
+
+      const key = input.dataset.social;
+
+      input.value = draft.socials[key] || "";
+
+    });
+
+  renderSkillEditor();
+  renderProjectEditor();
+  renderTimelineEditor();
+}
+
+
+/* =========================================================
+   SKILL EDITOR
+   ========================================================= */
+
+function renderSkillEditor(){
+
+  const container =
+    document.getElementById("skillEditor");
+
+  container.innerHTML = draft.skills.map((skill,index) => {
+
+    return `
+      <div class="editCard">
+
+        <div class="editCardGrid">
+
+          <input
+            data-skill-name="${index}"
+            value="${escapeHTML(skill.name)}"
+            placeholder="Yetenek adı"
+          >
+
+          <input
+            type="number"
+            min="0"
+            max="100"
+            data-skill-level="${index}"
+            value="${Number(skill.level) || 0}"
+            placeholder="%"
+          >
+
+        </div>
+
+        <div class="editActions">
+
+          <button
+            class="btn danger"
+            data-remove-skill="${index}"
+          >
+            Sil
+          </button>
+
+        </div>
+
+      </div>
+    `;
+
+  }).join("");
+
+  container.querySelectorAll("[data-skill-name]")
+    .forEach(input => {
+
+      input.addEventListener("input",event => {
+
+        const index =
+          Number(event.target.dataset.skillName);
+
+        draft.skills[index].name =
+          event.target.value;
+
+      });
+
+    });
+
+  container.querySelectorAll("[data-skill-level]")
+    .forEach(input => {
+
+      input.addEventListener("input",event => {
+
+        const index =
+          Number(event.target.dataset.skillLevel);
+
+        draft.skills[index].level =
+          Math.max(
+            0,
+            Math.min(
+              100,
+              Number(event.target.value) || 0
+            )
+          );
+
+      });
+
+    });
+
+  container.querySelectorAll("[data-remove-skill]")
+    .forEach(button => {
+
+      button.addEventListener("click",event => {
+
+        const index =
+          Number(event.currentTarget.dataset.removeSkill);
+
+        draft.skills.splice(index,1);
+
+        renderSkillEditor();
+
+      });
+
+    });
+}
+
+
+/* =========================================================
+   PROJECT EDITOR
+   ========================================================= */
+
+function renderProjectEditor(){
+
+  const container =
+    document.getElementById("projectEditor");
+
+  container.innerHTML = draft.projects.map((project,index) => {
+
+    return `
+      <div class="editCard">
+
+        <div class="editCardGrid four">
+
+          <input
+            data-project-title="${index}"
+            value="${escapeHTML(project.title)}"
+            placeholder="Proje adı"
+          >
+
+          <input
+            data-project-category="${index}"
+            value="${escapeHTML(project.category)}"
+            placeholder="Kategori"
+          >
+
+          <input
+            data-project-link="${index}"
+            value="${escapeHTML(project.link)}"
+            placeholder="Proje linki"
+          >
+
+          <input
+            data-project-github="${index}"
+            value="${escapeHTML(project.github)}"
+            placeholder="GitHub"
+          >
+
+        </div>
+
+        <textarea
+          data-project-description="${index}"
+          placeholder="Proje açıklaması"
+        >${escapeHTML(project.description)}</textarea>
+
+        <div class="editActions">
+
+          <button
+            class="btn danger"
+            data-remove-project="${index}"
+          >
+            Sil
+          </button>
+
+        </div>
+
+      </div>
+    `;
+
+  }).join("");
+
+  container.querySelectorAll("[data-project-title]")
+    .forEach(input => {
+
+      input.addEventListener("input",event => {
+
+        const i =
+          Number(event.target.dataset.projectTitle);
+
+        draft.projects[i].title =
+          event.target.value;
+
+      });
+
+    });
+
+  container.querySelectorAll("[data-project-category]")
+    .forEach(input => {
+
+      input.addEventListener("input",event => {
+
+        const i =
+          Number(event.target.dataset.projectCategory);
+
+        draft.projects[i].category =
+          event.target.value;
+
+      });
+
+    });
+
+  container.querySelectorAll("[data-project-link]")
+    .forEach(input => {
+
+      input.addEventListener("input",event => {
+
+        const i =
+          Number(event.target.dataset.projectLink);
+
+        draft.projects[i].link =
+          event.target.value;
+
+      });
+
+    });
+
+  container.querySelectorAll("[data-project-github]")
+    .forEach(input => {
+
+      input.addEventListener("input",event => {
+
+        const i =
+          Number(event.target.dataset.projectGithub);
+
+        draft.projects[i].github =
+          event.target.value;
+
+      });
+
+    });
+
+  container.querySelectorAll("[data-project-description]")
+    .forEach(input => {
+
+      input.addEventListener("input",event => {
+
+        const i =
+          Number(event.target.dataset.projectDescription);
+
+        draft.projects[i].description =
+          event.target.value;
+
+      });
+
+    });
+
+  container.querySelectorAll("[data-remove-project]")
+    .forEach(button => {
+
+      button.addEventListener("click",event => {
+
+        const i =
+          Number(event.currentTarget.dataset.removeProject);
+
+        draft.projects.splice(i,1);
+
+        renderProjectEditor();
+
+      });
+
+    });
+}
+
+
+/* =========================================================
+   TIMELINE EDITOR
+   ========================================================= */
+
+function renderTimelineEditor(){
+
+  const container =
+    document.getElementById("timelineEditor");
+
+  container.innerHTML = draft.timeline.map((item,index) => {
+
+    return `
+      <div class="editCard">
+
+        <div class="editCardGrid three">
+
+          <input
+            data-timeline-year="${index}"
+            value="${escapeHTML(item.year)}"
+            placeholder="Yıl"
+          >
+
+          <input
+            data-timeline-title="${index}"
+            value="${escapeHTML(item.title)}"
+            placeholder="Başlık"
+          >
+
+          <button
+            class="btn danger"
+            data-remove-timeline="${index}"
+          >
+            Sil
+          </button>
+
+        </div>
+
+        <textarea
+          data-timeline-description="${index}"
+          placeholder="Açıklama"
+        >${escapeHTML(item.description)}</textarea>
+
+      </div>
+    `;
+
+  }).join("");
+
+  container.querySelectorAll("[data-timeline-year]")
+    .forEach(input => {
+
+      input.addEventListener("input",event => {
+
+        const i =
+          Number(event.target.dataset.timelineYear);
+
+        draft.timeline[i].year =
+          event.target.value;
+
+      });
+
+    });
+
+  container.querySelectorAll("[data-timeline-title]")
+    .forEach(input => {
+
+      input.addEventListener("input",event => {
+
+        const i =
+          Number(event.target.dataset.timelineTitle);
+
+        draft.timeline[i].title =
+          event.target.value;
+
+      });
+
+    });
+
+  container.querySelectorAll("[data-timeline-description]")
+    .forEach(input => {
+
+      input.addEventListener("input",event => {
+
+        const i =
+          Number(event.target.dataset.timelineDescription);
+
+        draft.timeline[i].description =
+          event.target.value;
+
+      });
+
+    });
+
+  container.querySelectorAll("[data-remove-timeline]")
+    .forEach(button => {
+
+      button.addEventListener("click",event => {
+
+        const i =
+          Number(event.currentTarget.dataset.removeTimeline);
+
+        draft.timeline.splice(i,1);
+
+        renderTimelineEditor();
+
+      });
+
+    });
+}
+
+
+/* =========================================================
+   ADD BUTTONS
+   ========================================================= */
+
+document.getElementById("addSkillBtn")
+  .addEventListener("click",() => {
+
+    draft.skills.push({
+      name:"Yeni Yetenek",
+      level:50
+    });
+
+    renderSkillEditor();
+
+  });
+
+
+document.getElementById("addProjectBtn")
+  .addEventListener("click",() => {
+
+    draft.projects.push({
+      title:"Yeni Proje",
+      category:"PROJECT",
+      description:"Proje açıklaması.",
+      link:"",
+      github:""
+    });
+
+    renderProjectEditor();
+
+  });
+
+
+document.getElementById("addTimelineBtn")
+  .addEventListener("click",() => {
+
+    draft.timeline.push({
+      year:String(new Date().getFullYear()),
+      title:"Yeni Başlangıç",
+      description:"Buraya açıklama yaz."
+    });
+
+    renderTimelineEditor();
+
+  });
+
+
+/* =========================================================
+   TABS
+   ========================================================= */
+
+document.querySelectorAll(".tab")
+  .forEach(tab => {
+
+    tab.addEventListener("click",() => {
+
+      const target =
+        tab.dataset.tab;
+
+      document.querySelectorAll(".tab")
+        .forEach(item =>
+          item.classList.remove("active")
+        );
+
+      document.querySelectorAll(".page")
+        .forEach(page =>
+          page.classList.remove("active")
+        );
+
+      tab.classList.add("active");
+
+      document.getElementById(
+        "page-" + target
+      ).classList.add("active");
+
+    });
+
+  });
+
+
+/* =========================================================
+   SAVE
+   ========================================================= */
+
+saveBtn.addEventListener("click",() => {
+
+  draft.profile.name =
+    document.getElementById("fName").value.trim();
+
+  draft.profile.username =
+    document.getElementById("fUsername").value.trim();
+
+  draft.profile.role =
+    document.getElementById("fRole").value.trim();
+
+  draft.profile.avatar =
+    document.getElementById("fAvatar").value.trim();
+
+  draft.profile.avatarUrl =
+    document.getElementById("fAvatarUrl").value.trim();
+
+  draft.profile.description =
+    document.getElementById("fDesc").value.trim();
+
+  draft.profile.about =
+    document.getElementById("fAbout").value.trim();
+
+  draft.site.title =
+    document.getElementById("fTitle").value.trim()
+    || "WizardRoyale | Creator";
+
+  draft.site.brand =
+    document.getElementById("fBrand").value.trim()
+    || "WIZARDROYALE";
+
+  draft.site.primary =
+    document.getElementById("fPrimary").value;
+
+  draft.site.secondary =
+    document.getElementById("fSecondary").value;
+
+  draft.site.theme =
+    document.getElementById("fTheme").value;
+
+  document.querySelectorAll("[data-social]")
+    .forEach(input => {
+
+      const key = input.dataset.social;
+
+      draft.socials[key] =
+        input.value.trim();
+
+    });
+
+  data = mergeData(draft);
+
+  saveData();
+
+  render();
+
+  closeEditor();
+
+});
+
+
+/* =========================================================
+   EDITOR BUTTONS
+   ========================================================= */
+
+openEditorBtn.addEventListener(
+  "click",
+  openEditor
+);
+
+heroEditBtn.addEventListener(
+  "click",
+  openEditor
+);
+
+closeEditorBtn.addEventListener(
+  "click",
+  closeEditor
+);
+
+cancelBtn.addEventListener(
+  "click",
+  closeEditor
+);
+
+editorOverlay.addEventListener(
+  "click",
+  event => {
+
+    if(event.target === editorOverlay){
+      closeEditor();
+    }
+
+  }
+);
+
+
+/* =========================================================
+   THEME BUTTON
+   ========================================================= */
+
+themeBtn.addEventListener("click",() => {
+
+  data.site.theme =
+    data.site.theme === "light"
+      ? "dark"
+      : "light";
+
+  saveData();
+
+  render();
+
+});
+
+
+/* =========================================================
+   EXPORT
+   ========================================================= */
+
+document.getElementById("exportBtn")
+  .addEventListener("click",() => {
+
+    const blob = new Blob(
+      [JSON.stringify(data,null,2)],
+      {type:"application/json"}
+    );
+
+    const url =
+      URL.createObjectURL(blob);
+
+    const a =
+      document.createElement("a");
+
+    a.href = url;
+
+    a.download =
+      "wizardroyale-profile.json";
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    a.remove();
+
+    URL.revokeObjectURL(url);
+
+  });
+
+
+/* =========================================================
+   IMPORT
+   ========================================================= */
+
+const importFileEl =
+  document.getElementById("importFile");
+
+document.getElementById("importBtn")
+  .addEventListener("click",() => {
+
+    importFileEl.click();
+
+  });
+
+importFileEl.addEventListener(
+  "change",
+  async event => {
+
+    const file =
+      event.target.files[0];
+
+    if(!file) return;
+
+    try{
+
+      const text =
+        await file.text();
+
+      const imported =
+        JSON.parse(text);
+
+      draft =
+        mergeData(imported);
+
+      fillEditor();
+
+      alert("JSON başarıyla içeri aktarıldı. Kaydet'e basarak uygulayabilirsin.");
+
+    }catch(error){
+
+      alert("Geçersiz JSON dosyası.");
+
+    }
+
+    importFileEl.value = "";
+
+  }
+);
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+document.getElementById("resetBtn")
+  .addEventListener("click",() => {
+
+    const confirmed =
+      confirm(
+        "Tüm kişisel portföy bilgilerin varsayılan değerlere döndürülsün mü?"
+      );
+
+    if(!confirmed) return;
+
+    draft = clone(DEFAULT_DATA);
+
+    fillEditor();
+
+  });
+
+
+/* =========================================================
+   MUSIC
+   ========================================================= */
+
+const musicFileEl =
+  document.getElementById("musicFile");
+
+const musicBtnEl =
+  document.getElementById("musicBtn");
+
+const audioEl =
+  document.getElementById("audio");
+
+const musicTitleEl =
+  document.getElementById("musicTitle");
+
+let musicUrl = null;
+
+musicFileEl.addEventListener(
+  "change",
+  event => {
+
+    const file =
+      event.target.files[0];
+
+    if(!file) return;
+
+    if(musicUrl){
+      URL.revokeObjectURL(musicUrl);
+    }
+
+    musicUrl =
+      URL.createObjectURL(file);
+
+    audioEl.src = musicUrl;
+
+    musicTitleEl.textContent =
+      file.name;
+
+  }
+);
+
+musicBtnEl.addEventListener(
+  "click",
+  async () => {
+
+    if(!audioEl.src){
+
+      alert("Önce bir müzik dosyası seç.");
+
+      return;
+    }
+
+    if(audioEl.paused){
+
+      try{
+
+        await audioEl.play();
+
+        musicBtnEl.textContent =
+          "Ⅱ Müziği Durdur";
+
+      }catch(error){
+
+        alert("Müzik oynatılamadı.");
+
+      }
+
+    }else{
+
+      audioEl.pause();
+
+      musicBtnEl.textContent =
+        "▶ Müziği Başlat";
+
+    }
+
+  }
+);
+
+audioEl.addEventListener(
+  "ended",
+  () => {
+
+    musicBtnEl.textContent =
+      "▶ Müziği Başlat";
+
+  }
+);
+
+
+/* =========================================================
+   ARCADE GAME
+   ========================================================= */
+
+const gameCanvas =
+  document.getElementById("game");
+
+const gameCtx =
+  gameCanvas.getContext("2d");
+
+const gameStartBtn =
+  document.getElementById("gameStartBtn");
+
+const gamePauseBtn =
+  document.getElementById("gamePauseBtn");
+
+const gameHudEl =
+  document.getElementById("hud");
+
+const bestScoreEl =
+  document.getElementById("bestScore");
+
+const GAME_W =
+  gameCanvas.width;
+
+const GAME_H =
+  gameCanvas.height;
+
+
+const game = {
+
+  state:"menu",
+
+  keys:{},
+
+  mouse:{
+    x:GAME_W/2,
+    y:GAME_H/2,
+    down:false
+  },
+
+  player:null,
+
+  enemies:[],
+  bullets:[],
+  enemyBullets:[],
+  particles:[],
+  texts:[],
+  pickups:[],
+
+  score:0,
+  best:Number(
+    localStorage.getItem("wizardHighScore") || 0
+  ),
+
+  wave:1,
+
+  spawnTimer:0,
+
+  shake:0,
+
+  level:1,
+
+  xp:0,
+
+  nextXp:80,
+
+  coins:0,
+
+  combo:0,
+
+  comboTimer:0,
+
+  kills:0,
+
+  shots:0,
+
+  elapsed:0
+
+};
+
+bestScoreEl.textContent =
+  game.best;
+
+
+/* =========================================================
+   GAME HELPERS
+   ========================================================= */
+
+function random(min,max){
+  return Math.random() * (max-min) + min;
+}
+
+function distance(ax,ay,bx,by){
+  return Math.hypot(
+    bx-ax,
+    by-ay
+  );
+}
+
+function clamp(value,min,max){
+  return Math.max(min,Math.min(max,value));
+}
+
+function addText(x,y,text,color="#fff"){
+
+  game.texts.push({
+    x,
+    y,
+    text,
+    color,
+    life:1
+  });
+
+}
+
+function burst(x,y,color,count=10){
+
+  for(let i=0;i<count;i++){
+
+    const angle =
+      Math.random()*Math.PI*2;
+
+    const speed =
+      random(40,180);
+
+    game.particles.push({
+      x,
+      y,
+      vx:Math.cos(angle)*speed,
+      vy:Math.sin(angle)*speed,
+      life:random(.3,.8),
+      maxLife:.8,
+      size:random(2,5),
+      color
+    });
+
+  }
+
+}
+
+
+/* =========================================================
+   GAME RESET
+   ========================================================= */
+
+function resetGame(){
+
+  game.state = "running";
+
+  game.score = 0;
+  game.wave = 1;
+  game.spawnTimer = 0;
+  game.shake = 0;
+  game.level = 1;
+  game.xp = 0;
+  game.nextXp = 80;
+  game.coins = 0;
+  game.combo = 0;
+  game.comboTimer = 0;
+  game.kills = 0;
+  game.shots = 0;
+  game.elapsed = 0;
+
+  game.enemies = [];
+  game.bullets = [];
+  game.enemyBullets = [];
+  game.particles = [];
+  game.texts = [];
+  game.pickups = [];
+
+  game.player = {
+
+    x:GAME_W/2,
+    y:GAME_H/2,
+
+    r:17,
+
+    hp:100,
+    maxHp:100,
+
+    mana:100,
+    maxMana:100,
+
+    speed:245,
+
+    damage:20,
+
+    rate:.22,
+
+    cool:0,
+
+    dashCooldown:0,
+
+    invincible:0,
+
+    magnet:90,
+
+    fireSpread:0,
+
+    projectileSpeed:700
+
+  };
+
+  gameHudEl.textContent =
+    "Dalga 1 · Seviye 1";
+
+  gameStartBtn.textContent =
+    "↻ Yeniden Başlat";
+
+  gamePauseBtn.textContent =
+    "Ⅱ Duraklat";
+
+}
+
+
+/* =========================================================
+   START / PAUSE
+   ========================================================= */
+
+function startGame(){
+
+  resetGame();
+
+  gameCanvas.focus();
+
+}
+
+function togglePause(){
+
+  if(game.state === "running"){
+
+    game.state = "paused";
+
+    gamePauseBtn.textContent =
+      "▶ Devam Et";
+
+  }else if(game.state === "paused"){
+
+    game.state = "running";
+
+    gamePauseBtn.textContent =
+      "Ⅱ Duraklat";
+
+  }
+
+}
+
+gameStartBtn.addEventListener(
+  "click",
+  startGame
+);
+
+gamePauseBtn.addEventListener(
+  "click",
+  togglePause
+);
+
+
+/* =========================================================
+   SPAWN ENEMY
+   ========================================================= */
+
+function spawnEnemy(){
+
+  const side =
+    Math.floor(Math.random()*4);
+
+  let x;
+  let y;
+
+  if(side===0){
+    x=random(0,GAME_W);
+    y=-35;
+  }
+
+  if(side===1){
+    x=GAME_W+35;
+    y=random(0,GAME_H);
+  }
+
+  if(side===2){
+    x=random(0,GAME_W);
+    y=GAME_H+35;
+  }
+
+  if(side===3){
+    x=-35;
+    y=random(0,GAME_H);
+  }
+
+  const types = [
+    "normal",
+    "fast",
+    "tank",
+    "shooter"
+  ];
+
+  let type =
+    types[Math.floor(Math.random()*types.length)];
+
+  let hp =
+    30 + game.wave*5;
+
+  let speed =
+    70 + game.wave*2;
+
+  let radius = 15;
+
+  let color =
+    "#ff5c7a";
+
+  if(type==="fast"){
+
+    hp *= .55;
+    speed *= 1.65;
+    radius = 11;
+    color = "#ffd166";
+
+  }
+
+  if(type==="tank"){
+
+    hp *= 2.7;
+    speed *= .5;
+    radius = 25;
+    color = "#b98cff";
+
+  }
+
+  if(type==="shooter"){
+
+    hp *= 1.3;
+    speed *= .7;
+    radius = 18;
+    color = "#59d9ff";
+
+  }
+
+  game.enemies.push({
+
+    x,
+    y,
+
+    r:radius,
+
+    hp,
+    maxHp:hp,
+
+    speed,
+
+    type,
+
+    color,
+
+    shootCooldown:random(1,2)
+
+  });
+
+}
+
+
+/* =========================================================
+   SHOOT
+   ========================================================= */
+
+function shoot(){
+
+  const p =
+    game.player;
+
+  if(!p) return;
+
+  if(p.cool>0) return;
+
+  const dx =
+    game.mouse.x-p.x;
+
+  const dy =
+    game.mouse.y-p.y;
+
+  const angle =
+    Math.atan2(dy,dx);
+
+  const spreadCount =
+    p.fireSpread;
+
+  const total =
+    spreadCount * 2 + 1;
+
+  for(let i=-spreadCount;i<=spreadCount;i++){
+
+    const a =
+      angle + i*.11;
+
+    game.bullets.push({
+
+      x:p.x + Math.cos(a)*20,
+
+      y:p.y + Math.sin(a)*20,
+
+      vx:Math.cos(a)*p.projectileSpeed,
+
+      vy:Math.sin(a)*p.projectileSpeed,
+
+      r:5,
+
+      damage:p.damage
+
+    });
+
+  }
+
+  p.cool =
+    p.rate;
+
+  game.shots++;
+
+  burst(
+    p.x+Math.cos(angle)*18,
+    p.y+Math.sin(angle)*18,
+    "#ffd166",
+    3
+  );
+
+}
+
+
+/* =========================================================
+   DASH
+   ========================================================= */
+
+function dash(){
+
+  const p =
+    game.player;
+
+  if(!p) return;
+
+  if(p.dashCooldown>0) return;
+
+  let dx=0;
+  let dy=0;
+
+  if(game.keys["w"] || game.keys["arrowup"])
+    dy-=1;
+
+  if(game.keys["s"] || game.keys["arrowdown"])
+    dy+=1;
+
+  if(game.keys["a"] || game.keys["arrowleft"])
+    dx-=1;
+
+  if(game.keys["d"] || game.keys["arrowright"])
+    dx+=1;
+
+  if(dx===0 && dy===0){
+
+    dx =
+      game.mouse.x-p.x;
+
+    dy =
+      game.mouse.y-p.y;
+
+  }
+
+  const len =
+    Math.hypot(dx,dy) || 1;
+
+  dx/=len;
+  dy/=len;
+
+  p.x =
+    clamp(
+      p.x+dx*110,
+      p.r,
+      GAME_W-p.r
+    );
+
+  p.y =
+    clamp(
+      p.y+dy*110,
+      p.r,
+      GAME_H-p.r
+    );
+
+  p.dashCooldown=.8;
+  p.invincible=.22;
+
+  burst(
+    p.x,
+    p.y,
+    "#9b5cff",
+    18
+  );
+
+}
+
+
+/* =========================================================
+   DAMAGE PLAYER
+   ========================================================= */
+
+function damagePlayer(amount){
+
+  const p =
+    game.player;
+
+  if(!p) return;
+
+  if(p.invincible>0) return;
+
+  p.hp -= amount;
+
+  p.invincible=.45;
+
+  game.shake=8;
+
+  addText(
+    p.x,
+    p.y-25,
+    "-"+Math.round(amount),
+    "#ff5c7a"
+  );
+
+  burst(
+    p.x,
+    p.y,
+    "#ff5c7a",
+    12
+  );
+
+  if(p.hp<=0){
+
+    p.hp=0;
+
+    game.state="gameover";
+
+    if(game.score>game.best){
+
+      game.best =
+        game.score;
+
+      localStorage.setItem(
+        "wizardHighScore",
+        String(game.best)
+      );
+
+      bestScoreEl.textContent =
+        game.best;
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   LEVEL UP
+   ========================================================= */
+
+function gainXP(amount){
+
+  game.xp += amount;
+
+  if(game.xp >= game.nextXp){
+
+    game.xp -= game.nextXp;
+
+    game.level++;
+
+    game.nextXp =
+      Math.floor(game.nextXp*1.25);
+
+    game.state="levelup";
+
+  }
+
+}
+
+const UPGRADES = [
+
+  {
+    title:"Arcane Power",
+    description:"+8 hasar",
+    apply:() => {
+      game.player.damage += 8;
+    }
+  },
+
+  {
+    title:"Swift Boots",
+    description:"+35 hareket hızı",
+    apply:() => {
+      game.player.speed += 35;
+    }
+  },
+
+  {
+    title:"Rapid Fire",
+    description:"Atış aralığı azalır",
+    apply:() => {
+      game.player.rate =
+        Math.max(.07,game.player.rate-.025);
+    }
+  },
+
+  {
+    title:"Vitality",
+    description:"+25 maksimum can ve iyileşme",
+    apply:() => {
+      game.player.maxHp += 25;
+      game.player.hp += 25;
+    }
+  },
+
+  {
+    title:"Multishot",
+    description:"+1 yan mermi",
+    apply:() => {
+      game.player.fireSpread =
+        Math.min(3,game.player.fireSpread+1);
+    }
+  },
+
+  {
+    title:"Mana Core",
+    description:"Dash cooldown azalır",
+    apply:() => {
+      game.player.dashCooldown =
+        Math.max(0,game.player.dashCooldown-.2);
+    }
+  }
+
+];
+
+function chooseUpgrade(index){
+
+  if(game.state!=="levelup") return;
+
+  const upgrade =
+    UPGRADES[index];
+
+  if(!upgrade) return;
+
+  upgrade.apply();
+
+  game.state="running";
+
+}
+
+
+/* =========================================================
+   GAME UPDATE
+   ========================================================= */
+
+function updateGame(dt){
+
+  const p =
+    game.player;
+
+  if(!p) return;
+
+  game.elapsed += dt;
+
+  game.wave =
+    Math.floor(game.elapsed/20)+1;
+
+  p.cool =
+    Math.max(0,p.cool-dt);
+
+  p.dashCooldown =
+    Math.max(0,p.dashCooldown-dt);
+
+  p.invincible =
+    Math.max(0,p.invincible-dt);
+
+  if(game.keys["shift"]){
+    dash();
+    game.keys["shift"]=false;
+  }
+
+  let mx=0;
+  let my=0;
+
+  if(game.keys["w"] || game.keys["arrowup"])
+    my--;
+
+  if(game.keys["s"] || game.keys["arrowdown"])
+    my++;
+
+  if(game.keys["a"] || game.keys["arrowleft"])
+    mx--;
+
+  if(game.keys["d"] || game.keys["arrowright"])
+    mx++;
+
+  const moveLen =
+    Math.hypot(mx,my);
+
+  if(moveLen>0){
+
+    mx/=moveLen;
+    my/=moveLen;
+
+    p.x += mx*p.speed*dt;
+    p.y += my*p.speed*dt;
+
+  }
+
+  p.x =
+    clamp(
+      p.x,
+      p.r,
+      GAME_W-p.r
+    );
+
+  p.y =
+    clamp(
+      p.y,
+      p.r,
+      GAME_H-p.r
+    );
+
+  if(
+    game.mouse.down ||
+    game.keys[" "]
+  ){
+
+    shoot();
+
+  }
+
+  /* SPAWN */
+
+  game.spawnTimer -= dt;
+
+  if(game.spawnTimer<=0){
+
+    spawnEnemy();
+
+    const base =
+      Math.max(.18,.8-game.wave*.035);
+
+    game.spawnTimer =
+      base;
+
+  }
+
+  /* BULLETS */
+
+  for(let i=game.bullets.length-1;i>=0;i--){
+
+    const b =
+      game.bullets[i];
+
+    b.x += b.vx*dt;
+    b.y += b.vy*dt;
+
+    let remove =
+      b.x<-30 ||
+      b.x>GAME_W+30 ||
+      b.y<-30 ||
+      b.y>GAME_H+30;
+
+    if(remove){
+
+      game.bullets.splice(i,1);
+
+      continue;
+
+    }
+
+    for(let j=game.enemies.length-1;j>=0;j--){
+
+      const e =
+        game.enemies[j];
+
+      const d =
+        distance(
+          b.x,b.y,
+          e.x,e.y
+        );
+
+      if(d < b.r+e.r){
+
+        e.hp -= b.damage;
+
+        burst(
+          b.x,
+          b.y,
+          e.color,
+          3
+        );
+
+        game.bullets.splice(i,1);
+
+        if(e.hp<=0){
+
+          game.enemies.splice(j,1);
+
+          game.kills++;
+
+          game.score +=
+            10 + game.wave*2;
+
+          game.combo++;
+
+          game.comboTimer=2;
+
+          gainXP(
+            e.type==="tank"
+              ? 30
+              : 15
+          );
+
+          addText(
+            e.x,
+            e.y,
+            "+"+(10+game.wave*2),
+            "#ffd166"
+          );
+
+          burst(
+            e.x,
+            e.y,
+            e.color,
+            e.type==="tank" ? 25 : 12
+          );
+
+          if(Math.random()<.08){
+
+            game.pickups.push({
+              x:e.x,
+              y:e.y,
+              type:
+                Math.random()<.5
+                  ? "hp"
+                  : "mana",
+              r:9
+            });
+
+          }
+
+        }
+
+        break;
+
+      }
+
+    }
+
+  }
+
+
+  /* ENEMIES */
+
+  for(let i=game.enemies.length-1;i>=0;i--){
+
+    const e =
+      game.enemies[i];
+
+    const dx =
+      p.x-e.x;
+
+    const dy =
+      p.y-e.y;
+
+    const d =
+      Math.hypot(dx,dy) || 1;
+
+    e.x +=
+      dx/d *
+      e.speed *
+      dt;
+
+    e.y +=
+      dy/d *
+      e.speed *
+      dt;
+
+    if(e.type==="shooter"){
+
+      e.shootCooldown -= dt;
+
+      if(e.shootCooldown<=0){
+
+        const a =
+          Math.atan2(
+            p.y-e.y,
+            p.x-e.x
+          );
+
+        game.enemyBullets.push({
+
+          x:e.x,
+          y:e.y,
+
+          vx:Math.cos(a)*250,
+          vy:Math.sin(a)*250,
+
+          r:5,
+
+          damage:9
+
+        });
+
+        e.shootCooldown =
+          1.7;
+
+      }
+
+    }
+
+    if(d < p.r+e.r){
+
+      damagePlayer(
+        e.type==="tank"
+          ? 20
+          : 10
+      );
+
+      const push =
+        35;
+
+      e.x -=
+        dx/d*push*dt;
+
+      e.y -=
+        dy/d*push*dt;
+
+    }
+
+  }
+
+
+  /* ENEMY BULLETS */
+
+  for(
+    let i=game.enemyBullets.length-1;
+    i>=0;
+    i--
+  ){
+
+    const b =
+      game.enemyBullets[i];
+
+    b.x += b.vx*dt;
+    b.y += b.vy*dt;
+
+    if(
+      b.x<-50 ||
+      b.x>GAME_W+50 ||
+      b.y<-50 ||
+      b.y>GAME_H+50
+    ){
+
+      game.enemyBullets.splice(i,1);
+
+      continue;
+
+    }
+
+    if(
+      distance(
+        b.x,b.y,
+        p.x,p.y
+      ) <
+      b.r+p.r
+    ){
+
+      damagePlayer(b.damage);
+
+      game.enemyBullets.splice(i,1);
+
+    }
+
+  }
+
+
+  /* PICKUPS */
+
+  for(
+    let i=game.pickups.length-1;
+    i>=0;
+    i--
+  ){
+
+    const item =
+      game.pickups[i];
+
+    const d =
+      distance(
+        item.x,item.y,
+        p.x,p.y
+      );
+
+    if(d<p.magnet){
+
+      item.x +=
+        (p.x-item.x)/Math.max(d,1) *
+        180*dt;
+
+      item.y +=
+        (p.y-item.y)/Math.max(d,1) *
+        180*dt;
+
+    }
+
+    if(d<p.r+p.r){
+
+      if(item.type==="hp"){
+
+        p.hp =
+          Math.min(
+            p.maxHp,
+            p.hp+20
+          );
+
+        addText(
+          p.x,
+          p.y-20,
+          "+20 HP",
+          "#65ff9b"
+        );
+
+      }else{
+
+        p.mana =
+          Math.min(
+            p.maxMana,
+            p.mana+30
+          );
+
+        addText(
+          p.x,
+          p.y-20,
+          "+30 MANA",
+          "#59d9ff"
+        );
+
+      }
+
+      game.pickups.splice(i,1);
+
+    }
+
+  }
+
+
+  /* PARTICLES */
+
+  for(
+    let i=game.particles.length-1;
+    i>=0;
+    i--
+  ){
+
+    const part =
+      game.particles[i];
+
+    part.x +=
+      part.vx*dt;
+
+    part.y +=
+      part.vy*dt;
+
+    part.vx *= .97;
+    part.vy *= .97;
+
+    part.life -= dt;
+
+    if(part.life<=0){
+
+      game.particles.splice(i,1);
+
+    }
+
+  }
+
+
+  /* TEXTS */
+
+  for(
+    let i=game.texts.length-1;
+    i>=0;
+    i--
+  ){
+
+    const t =
+      game.texts[i];
+
+    t.y -=
+      25*dt;
+
+    t.life -= dt;
+
+    if(t.life<=0){
+
+      game.texts.splice(i,1);
+
+    }
+
+  }
+
+
+  game.comboTimer -= dt;
+
+  if(game.comboTimer<=0){
+
+    game.combo=0;
+
+  }
+
+  game.shake =
+    Math.max(
+      0,
+      game.shake-dt*20
+    );
+
+  gameHudEl.textContent =
+    `Dalga ${game.wave} · Seviye ${game.level} · Skor ${game.score}`;
+
+}
+
+
+/* =========================================================
+   GAME DRAW
+   ========================================================= */
+
+function drawGame(){
+
+  const ctx =
+    gameCtx;
+
+  ctx.clearRect(
+    0,
+    0,
+    GAME_W,
+    GAME_H
+  );
+
+  /* BACKGROUND */
+
+  const gradient =
+    ctx.createLinearGradient(
+      0,0,
+      GAME_W,GAME_H
+    );
+
+  gradient.addColorStop(
+    0,
+    "#080612"
+  );
+
+  gradient.addColorStop(
+    1,
+    "#140b25"
+  );
+
+  ctx.fillStyle =
+    gradient;
+
+  ctx.fillRect(
+    0,0,
+    GAME_W,
+    GAME_H
+  );
+
+
+  /* GRID */
+
+  ctx.strokeStyle =
+    "rgba(155,92,255,.08)";
+
+  ctx.lineWidth=1;
+
+  const grid=40;
+
+  for(let x=0;x<GAME_W;x+=grid){
+
+    ctx.beginPath();
+
+    ctx.moveTo(x,0);
+
+    ctx.lineTo(x,GAME_H);
+
+    ctx.stroke();
+
+  }
+
+  for(let y=0;y<GAME_H;y+=grid){
+
+    ctx.beginPath();
+
+    ctx.moveTo(0,y);
+
+    ctx.lineTo(GAME_W,y);
+
+    ctx.stroke();
+
+  }
+
+
+  ctx.save();
+
+  if(game.shake>0){
+
+    ctx.translate(
+      random(-game.shake,game.shake),
+      random(-game.shake,game.shake)
+    );
+
+  }
+
+
+  /* PICKUPS */
+
+  for(const item of game.pickups){
+
+    ctx.beginPath();
+
+    ctx.arc(
+      item.x,
+      item.y,
+      item.r,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fillStyle =
+      item.type==="hp"
+        ? "#65ff9b"
+        : "#59d9ff";
+
+    ctx.shadowBlur=18;
+
+    ctx.shadowColor =
+      ctx.fillStyle;
+
+    ctx.fill();
+
+    ctx.shadowBlur=0;
+
+  }
+
+
+  /* BULLETS */
+
+  for(const b of game.bullets){
+
+    ctx.beginPath();
+
+    ctx.arc(
+      b.x,
+      b.y,
+      b.r,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fillStyle="#ffd166";
+
+    ctx.shadowBlur=15;
+
+    ctx.shadowColor="#ffd166";
+
+    ctx.fill();
+
+    ctx.shadowBlur=0;
+
+  }
+
+
+  /* ENEMY BULLETS */
+
+  for(const b of game.enemyBullets){
+
+    ctx.beginPath();
+
+    ctx.arc(
+      b.x,
+      b.y,
+      b.r,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fillStyle="#59d9ff";
+
+    ctx.shadowBlur=15;
+
+    ctx.shadowColor="#59d9ff";
+
+    ctx.fill();
+
+    ctx.shadowBlur=0;
+
+  }
+
+
+  /* ENEMIES */
+
+  for(const e of game.enemies){
+
+    ctx.beginPath();
+
+    ctx.arc(
+      e.x,
+      e.y,
+      e.r,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fillStyle=e.color;
+
+    ctx.shadowBlur=20;
+
+    ctx.shadowColor=e.color;
+
+    ctx.fill();
+
+    ctx.shadowBlur=0;
+
+    /* HP BAR */
+
+    const width =
+      e.r*2.4;
+
+    const hp =
+      clamp(
+        e.hp/e.maxHp,
+        0,
+        1
+      );
+
+    ctx.fillStyle=
+      "rgba(0,0,0,.5)";
+
+    ctx.fillRect(
+      e.x-width/2,
+      e.y-e.r-10,
+      width,
+      4
+    );
+
+    ctx.fillStyle="#65ff9b";
+
+    ctx.fillRect(
+      e.x-width/2,
+      e.y-e.r-10,
+      width*hp,
+      4
+    );
+
+  }
+
+
+  /* PLAYER */
+
+  const p =
+    game.player;
+
+  if(p){
+
+    const angle =
+      Math.atan2(
+        game.mouse.y-p.y,
+        game.mouse.x-p.x
+      );
+
+    ctx.save();
+
+    ctx.translate(
+      p.x,
+      p.y
+    );
+
+    ctx.rotate(angle);
+
+    ctx.beginPath();
+
+    ctx.moveTo(24,0);
+
+    ctx.lineTo(-13,-13);
+
+    ctx.lineTo(-8,0);
+
+    ctx.lineTo(-13,13);
+
+    ctx.closePath();
+
+    ctx.fillStyle=
+      p.invincible>0
+        ? "#ffffff"
+        : "#9b5cff";
+
+    ctx.shadowBlur=25;
+
+    ctx.shadowColor="#9b5cff";
+
+    ctx.fill();
+
+    ctx.restore();
+
+    ctx.shadowBlur=0;
+
+
+    /* HP */
+
+    const barWidth=130;
+
+    ctx.fillStyle=
+      "rgba(0,0,0,.55)";
+
+    ctx.fillRect(
+      p.x-barWidth/2,
+      p.y+28,
+      barWidth,
+      7
+    );
+
+    ctx.fillStyle="#ff5c7a";
+
+    ctx.fillRect(
+      p.x-barWidth/2,
+      p.y+28,
+      barWidth *
+      clamp(p.hp/p.maxHp,0,1),
+      7
+    );
+
+    /* XP */
+
+    ctx.fillStyle=
+      "rgba(0,0,0,.55)";
+
+    ctx.fillRect(
+      p.x-barWidth/2,
+      p.y+39,
+      barWidth,
+      5
+    );
+
+    ctx.fillStyle="#ffd166";
+
+    ctx.fillRect(
+      p.x-barWidth/2,
+      p.y+39,
+      barWidth *
+      clamp(game.xp/game.nextXp,0,1),
+      5
+    );
+
+  }
+
+
+  /* PARTICLES */
+
+  for(const part of game.particles){
+
+    ctx.globalAlpha =
+      clamp(
+        part.life/part.maxLife,
+        0,
+        1
+      );
+
+    ctx.fillStyle =
+      part.color;
+
+    ctx.beginPath();
+
+    ctx.arc(
+      part.x,
+      part.y,
+      part.size,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fill();
+
+  }
+
+  ctx.globalAlpha=1;
+
+
+  /* FLOATING TEXT */
+
+  for(const t of game.texts){
+
+    ctx.globalAlpha =
+      clamp(t.life,0,1);
+
+    ctx.fillStyle =
+      t.color;
+
+    ctx.font =
+      "bold 14px Arial";
+
+    ctx.textAlign="center";
+
+    ctx.fillText(
+      t.text,
+      t.x,
+      t.y
+    );
+
+  }
+
+  ctx.globalAlpha=1;
+
+  ctx.restore();
+
+
+  /* OVERLAYS */
+
+  if(game.state==="menu"){
+
+    drawOverlay(
+      "WIZARD ROYALE",
+      "Hayatta kalmaya hazır mısın?",
+      "BAŞLAT"
+    );
+
+  }
+
+  if(game.state==="paused"){
+
+    drawOverlay(
+      "DURAKLATILDI",
+      "Devam etmek için P'ye bas veya butona tıkla.",
+      "DEVAM ET"
+    );
+
+  }
+
+  if(game.state==="gameover"){
+
+    drawOverlay(
+      "OYUN BİTTİ",
+      `Skor: ${game.score} · Dalga: ${game.wave}`,
+      "TEKRAR OYNA"
+    );
+
+  }
+
+  if(game.state==="levelup"){
+
+    drawLevelUp();
+
+  }
+
+}
+
+
+/* =========================================================
+   GAME OVERLAY
+   ========================================================= */
+
+function drawOverlay(title,subtitle,buttonText){
+
+  const ctx =
+    gameCtx;
+
+  ctx.fillStyle =
+    "rgba(4,3,9,.72)";
+
+  ctx.fillRect(
+    0,0,
+    GAME_W,
+    GAME_H
+  );
+
+  ctx.textAlign="center";
+
+  ctx.fillStyle="#fff";
+
+  ctx.font=
+    "900 48px Arial";
+
+  ctx.fillText(
+    title,
+    GAME_W/2,
+    GAME_H/2-50
+  );
+
+  ctx.fillStyle="#bdb0cc";
+
+  ctx.font=
+    "18px Arial";
+
+  ctx.fillText(
+    subtitle,
+    GAME_W/2,
+    GAME_H/2
+  );
+
+  ctx.fillStyle="#ffd166";
+
+  ctx.font=
+    "bold 18px Arial";
+
+  ctx.fillText(
+    buttonText+" · ENTER",
+    GAME_W/2,
+    GAME_H/2+45
+  );
+
+}
+
+
+/* =========================================================
+   LEVEL UP DRAW
+   ========================================================= */
+
+function drawLevelUp(){
+
+  const ctx =
+    gameCtx;
+
+  ctx.fillStyle =
+    "rgba(4,3,9,.82)";
+
+  ctx.fillRect(
+    0,0,
+    GAME_W,
+    GAME_H
+  );
+
+  ctx.textAlign="center";
+
+  ctx.fillStyle="#ffd166";
+
+  ctx.font=
+    "900 36px Arial";
+
+  ctx.fillText(
+    "SEVİYE ATLADIN!",
+    GAME_W/2,
+    75
+  );
+
+  ctx.fillStyle="#fff";
+
+  ctx.font=
+    "16px Arial";
+
+  ctx.fillText(
+    "Bir geliştirme seç — 1 ile 6 arasında bir tuşa bas.",
+    GAME_W/2,
+    105
+  );
+
+  const cardW=250;
+  const cardH=105;
+
+  const positions = [
+
+    [110,145],
+    [375,145],
+    [640,145],
+
+    [110,275],
+    [375,275],
+    [640,275]
+
+  ];
+
+  UPGRADES.forEach((upgrade,index) => {
+
+    const [x,y] =
+      positions[index];
+
+    ctx.fillStyle =
+      "rgba(155,92,255,.14)";
+
+    ctx.strokeStyle =
+      "rgba(155,92,255,.5)";
+
+    ctx.lineWidth=1;
+
+    ctx.beginPath();
+
+    ctx.roundRect(
+      x,
+      y,
+      cardW,
+      cardH,
+      15
+    );
+
+    ctx.fill();
+
+    ctx.stroke();
+
+    ctx.fillStyle="#ffd166";
+
+    ctx.font=
+      "bold 16px Arial";
+
+    ctx.fillText(
+      `${index+1}. ${upgrade.title}`,
+      x+cardW/2,
+      y+35
+    );
+
+    ctx.fillStyle="#bdb0cc";
+
+    ctx.font=
+      "13px Arial";
+
+    ctx.fillText(
+      upgrade.description,
+      x+cardW/2,
+      y+65
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   GAME INPUT
+   ========================================================= */
+
+gameCanvas.addEventListener(
+  "mousemove",
+  event => {
+
+    const rect =
+      gameCanvas.getBoundingClientRect();
+
+    game.mouse.x =
+      (event.clientX-rect.left)
+      *
+      (GAME_W/rect.width);
+
+    game.mouse.y =
+      (event.clientY-rect.top)
+      *
+      (GAME_H/rect.height);
+
+  }
+);
+
+
+gameCanvas.addEventListener(
+  "mousedown",
+  event => {
+
+    if(event.button===0){
+
+      game.mouse.down=true;
+
+      if(
+        game.state==="menu" ||
+        game.state==="gameover"
+      ){
+
+        startGame();
+
+      }
+
+    }
+
+  }
+);
+
+
+window.addEventListener(
+  "mouseup",
+  event => {
+
+    if(event.button===0){
+
+      game.mouse.down=false;
+
+    }
+
+  }
+);
+
+
+window.addEventListener(
+  "keydown",
+  event => {
+
+    const key =
+      event.key.toLowerCase();
+
+    game.keys[key]=true;
+
+    if([
+      " ",
+      "arrowup",
+      "arrowdown",
+      "arrowleft",
+      "arrowright"
+    ].includes(key)){
+
+      event.preventDefault();
+
+    }
+
+    if(key==="p"){
+
+      togglePause();
+
+    }
+
+    if(
+      key==="enter" &&
+      (
+        game.state==="menu" ||
+        game.state==="gameover"
+      )
+    ){
+
+      startGame();
+
+    }
+
+    if(game.state==="levelup"){
+
+      const number =
+        Number(key);
+
+      if(number>=1 && number<=6){
+
+        chooseUpgrade(
+          number-1
+        );
+
+      }
+
+    }
+
+  }
+);
+
+
+window.addEventListener(
+  "keyup",
+  event => {
+
+    game.keys[
+      event.key.toLowerCase()
+    ]=false;
+
+  }
+);
+
+
+window.addEventListener(
+  "blur",
+  () => {
+
+    game.keys={};
+
+    game.mouse.down=false;
+
+  }
+);
+
+
+/* =========================================================
+   GAME LOOP
+   ========================================================= */
+
+let lastGameTime =
+  performance.now();
+
+function gameLoop(now){
+
+  const dt =
+    Math.min(
+      .033,
+      Math.max(
+        0,
+        (now-lastGameTime)/1000
+      )
+    );
+
+  lastGameTime=now;
+
+  if(game.state==="running"){
+
+    updateGame(dt);
+
+  }
+
+  drawGame();
+
+  requestAnimationFrame(
+    gameLoop
+  );
+
+}
+
+requestAnimationFrame(
+  gameLoop
+);
+
+
+/* =========================================================
+   INIT
+   ========================================================= */
+
+render();
+
+</script>
+
+</body>
+</html>
